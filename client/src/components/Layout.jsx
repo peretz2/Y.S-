@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
       <Navbar />
-      <main style={{ minHeight: 'calc(100vh - 320px)' }}>
+      <main id="main-content" tabIndex={-1} style={{ minHeight: 'calc(100vh - 320px)' }}>
         <Outlet />
       </main>
       <Footer />

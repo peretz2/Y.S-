@@ -45,9 +45,21 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="footer-bottom">
+
+      <div className="footer-legal">
         <div className="container">
-          © {year} {companyInfo.name}. כל הזכויות שמורות.
+          <nav aria-label="קישורי מדיניות">
+            <Link to="/support">שירות ותמיכה</Link>
+            <span aria-hidden="true">·</span>
+            <Link to="/terms">תנאי שימוש</Link>
+            <span aria-hidden="true">·</span>
+            <Link to="/privacy">מדיניות פרטיות</Link>
+            <span aria-hidden="true">·</span>
+            <Link to="/accessibility">הצהרת נגישות</Link>
+          </nav>
+          <span className="footer-copy">
+            © {year} {companyInfo.name}. כל הזכויות שמורות.
+          </span>
         </div>
       </div>
     </footer>

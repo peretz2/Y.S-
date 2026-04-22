@@ -24,6 +24,41 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Accessibility: visible focus for keyboard users on every interactive element */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Skip-to-content link for keyboard users – hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  inset-inline-start: 1rem;
+  background: var(--color-primary-dark);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  font-weight: 500;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+  color: #fff;
+}
+
+/* Respect the OS-level "reduce motion" preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
 html, body {
   margin: 0;
   padding: 0;

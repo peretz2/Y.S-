@@ -22,10 +22,25 @@
   .footer-grid { grid-template-columns: 1fr; }
 }
 
-.footer-bottom {
+.footer-legal {
   border-top: 1px solid rgba(255,255,255,0.1);
-  padding: 1rem 0;
-  font-size: 0.85rem;
+  padding: 1.2rem 0;
+  font-size: 0.9rem;
   color: #9fb0c6;
-  text-align: center;
+}
+.footer-legal .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-legal nav { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.footer-legal a { color: #e6b96a; }
+.footer-legal a:hover { color: #fff; }
+.footer-legal span[aria-hidden] { color: #4a607d; }
+.footer-copy { color: #9fb0c6; }
+
+@media (max-width: 560px) {
+  .footer-legal .container { justify-content: center; text-align: center; }
 }
