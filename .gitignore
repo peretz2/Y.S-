@@ -9,6 +9,11 @@ build/
 .idea/
 coverage/
 
+# Platform-specific lockfile — each env regenerates via `npm install`.
+# npm #4828: a lockfile generated on one platform skips the other
+# platform's optional native deps (rollup, sharp, etc.) on install.
+package-lock.json
+
 # User-uploaded content – track only the folder itself via .gitkeep
 server/uploads/*
 !server/uploads/.gitkeep
