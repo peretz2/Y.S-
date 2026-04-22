@@ -1,0 +1,117 @@
+.hero {
+  background:
+    linear-gradient(135deg, rgba(8,38,69,0.92) 0%, rgba(13,59,102,0.85) 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230d3b66'/><path d='M0 50 L100 50 M50 0 L50 100' stroke='%23ffffff08' stroke-width='1'/></svg>");
+  color: #fff;
+  padding: 5rem 0 4rem;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+.hero-eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  color: #e6b96a;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+.hero-text h1 {
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  margin-bottom: 1.2rem;
+}
+.hero-sub {
+  font-size: 1.15rem;
+  color: #d7dee8;
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+.hero-actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background: rgba(255,255,255,0.08);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(4px);
+}
+.stat { text-align: center; }
+.stat strong {
+  display: block;
+  font-size: 2.2rem;
+  color: #e6b96a;
+  line-height: 1;
+}
+.stat span { color: #d7dee8; font-size: 0.9rem; }
+
+.section-head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+
+.service-card {
+  display: block;
+  color: inherit;
+  text-align: right;
+}
+.service-card:hover { color: inherit; }
+.service-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f5efe1, #fff);
+  border: 1px solid var(--color-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.project-card { padding: 0; overflow: hidden; }
+.project-thumb {
+  height: 200px;
+  background: linear-gradient(135deg, #e4dcc6, #d8c9a3);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumb-ph {
+  color: #82724b;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: rgba(255,255,255,0.6);
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+}
+.project-body { padding: 1.3rem; }
+.project-body h3 { margin: 0.6rem 0 0.4rem; }
+
+.cta-band {
+  background: linear-gradient(135deg, #0d3b66, #082645);
+  color: #fff;
+  padding: 3rem 0;
+}
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
