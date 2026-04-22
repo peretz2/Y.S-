@@ -22,7 +22,7 @@ Run from the repo root (they fan out to workspaces):
 | Command | What it does |
 |---|---|
 | `npm install` | Installs deps for both workspaces |
-| `npm run dev` | Runs server (`:5000`) + client (`:5173`) concurrently |
+| `npm run dev` | Runs server (`:5500`) + client (`:5170`) concurrently |
 | `npm run dev:server` / `npm run dev:client` | Run one side only |
 | `npm run seed` | Wipes + reseeds `services`, `projects`, upserts admin user from `ADMIN_EMAIL` / `ADMIN_PASSWORD` |
 | `npm run build` | Production build of the client to `client/dist` |
@@ -66,7 +66,7 @@ Take all of these as invariants — if you change one, double-check the others.
 
 ### Client → Server contract
 
-Vite dev server proxies `/api/*` → `http://localhost:5000` (see `client/vite.config.js`); cookies pass through because they're same-origin from the browser's POV (both appear as `localhost:5173`). All client API calls go through `client/src/api.js` (`baseURL: '/api'`, `withCredentials: true`). **Do not hardcode `http://localhost:5000` anywhere in the client.** Always import `api`.
+Vite dev server proxies `/api/*` and `/uploads/*` → `http://localhost:${PORT}` (defaults to 5500). The Vite config reads `server/.env` at startup via `loadEnv`, so changing `PORT` there flows to both sides automatically — don't hardcode the port in `vite.config.js`. Cookies pass through because everything is same-origin from the browser's POV (both appear as `localhost:5170`). All client API calls go through `client/src/api.js` (`baseURL: '/api'`, `withCredentials: true`). **Do not hardcode `http://localhost:5500` anywhere in the client.** Always import `api`.
 
 The file `client/src/api.js` also exports `companyInfo` — the single source of truth for the company's address, phone, hours, etc. Reuse it in any new UI rather than re-typing strings.
 

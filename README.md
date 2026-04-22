@@ -18,7 +18,7 @@
 npm install                              # מתקין את שני ה-workspaces
 cp server/.env.example server/.env       # ערכו את ערכי הסביבה
 npm run seed                             # זורע נתונים + מייצר משתמש אדמין
-npm run dev                              # מריץ שרת (5000) + קליינט (5173)
+npm run dev                              # מריץ שרת (5500) + קליינט (5170)
 ```
 
 ## פקודות עיקריות
@@ -47,7 +47,7 @@ npm run dev                              # מריץ שרת (5000) + קליינט
 
 ## פאנל ניהול
 
-אחרי `npm run seed`, כנסו ל-`http://localhost:5173/admin/login` עם הפרטים שמילאתם ב-`.env`.
+אחרי `npm run seed`, כנסו ל-`http://localhost:5170/admin/login` עם הפרטים שמילאתם ב-`.env`.
 
 פיצ'רים בפאנל:
 - לוח בקרה עם סטטיסטיקות

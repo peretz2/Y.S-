@@ -25,7 +25,7 @@ app.use(
   })
 );
 
-const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
+const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5170')
   .split(',')
   .map((s) => s.trim())
   .filter(Boolean);

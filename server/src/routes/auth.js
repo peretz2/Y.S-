@@ -127,7 +127,7 @@ router.post(
         user.passwordResetTokenHash = hash;
         user.passwordResetExpires = new Date(Date.now() + RESET_TTL_MS);
         await user.save();
-        const base = process.env.PUBLIC_URL || process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+        const base = process.env.PUBLIC_URL || process.env.CLIENT_ORIGIN || 'http://localhost:5170';
         const resetUrl = `${base.replace(/\/$/, '')}/admin/reset-password?token=${raw}`;
         try {
           await sendPasswordResetEmail({ to: user.email, resetUrl });
