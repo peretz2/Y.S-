@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../../api.js';
+import ImageUpload from '../../components/ImageUpload.jsx';
 
 const blank = {
   title: '', slug: '', category: '', location: '', year: new Date().getFullYear(),
@@ -132,15 +133,14 @@ export default function ProjectsAdmin() {
               <label>תיאור מלא</label>
               <textarea value={form.description} onChange={update('description')} />
             </div>
-            <div className="grid grid-2" style={{ gap: '1rem' }}>
-              <div className="form-group">
-                <label>URL תמונה</label>
-                <input value={form.imageUrl} onChange={update('imageUrl')} placeholder="https://..." />
-              </div>
-              <div className="form-group">
-                <label>סדר תצוגה</label>
-                <input type="number" value={form.order} onChange={update('order')} />
-              </div>
+            <ImageUpload
+              value={form.imageUrl}
+              onChange={(url) => setForm((f) => ({ ...f, imageUrl: url }))}
+              label="תמונת פרויקט"
+            />
+            <div className="form-group">
+              <label>סדר תצוגה</label>
+              <input type="number" value={form.order} onChange={update('order')} />
             </div>
             <div className="form-group">
               <label>

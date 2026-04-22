@@ -1,13 +1,13 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../auth/AuthContext.jsx';
 import './admin.css';
 
 export default function AdminLayout() {
   const navigate = useNavigate();
-  const email = localStorage.getItem('ys_user_email');
+  const { user, logout } = useAuth();
 
-  function logout() {
-    localStorage.removeItem('ys_token');
-    localStorage.removeItem('ys_user_email');
+  async function onLogout() {
+    await logout();
     navigate('/admin/login');
   }
 
@@ -23,10 +23,11 @@ export default function AdminLayout() {
           <NavLink to="/admin/services">שירותים</NavLink>
           <NavLink to="/admin/projects">פרויקטים</NavLink>
           <NavLink to="/admin/contacts">פניות</NavLink>
+          <NavLink to="/admin/account">חשבון / סיסמה</NavLink>
         </nav>
         <div className="admin-user">
-          <small className="text-muted">{email}</small>
-          <button className="btn btn-outline" onClick={logout} style={{ width: '100%', marginTop: '0.5rem' }}>
+          <small className="text-muted">{user?.email}</small>
+          <button className="btn btn-outline" onClick={onLogout} style={{ width: '100%', marginTop: '0.5rem' }}>
             התנתקות
           </button>
         </div>

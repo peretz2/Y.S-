@@ -8,3 +8,7 @@ build/
 .vscode/
 .idea/
 coverage/
+
+# User-uploaded content – track only the folder itself via .gitkeep
+server/uploads/*
+!server/uploads/.gitkeep

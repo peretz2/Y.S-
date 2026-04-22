@@ -137,7 +137,7 @@ async function seed() {
 
   const email = (process.env.ADMIN_EMAIL || 'admin@ys-engineers.co.il').toLowerCase();
   const password = process.env.ADMIN_PASSWORD || 'ChangeMe123!';
-  const passwordHash = await bcrypt.hash(password, 10);
+  const passwordHash = await bcrypt.hash(password, 12);
   await User.updateOne(
     { email },
     { $set: { email, passwordHash, role: 'admin' } },

@@ -12,6 +12,9 @@ import Dashboard from './pages/admin/Dashboard.jsx';
 import ServicesAdmin from './pages/admin/ServicesAdmin.jsx';
 import ProjectsAdmin from './pages/admin/ProjectsAdmin.jsx';
 import ContactsAdmin from './pages/admin/ContactsAdmin.jsx';
+import ForgotPassword from './pages/admin/ForgotPassword.jsx';
+import ResetPassword from './pages/admin/ResetPassword.jsx';
+import ChangePassword from './pages/admin/ChangePassword.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 
 export default function App() {
@@ -27,6 +30,8 @@ export default function App() {
       </Route>
 
       <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+      <Route path="/admin/reset-password" element={<ResetPassword />} />
       <Route
         path="/admin"
         element={
@@ -39,6 +44,7 @@ export default function App() {
         <Route path="services" element={<ServicesAdmin />} />
         <Route path="projects" element={<ProjectsAdmin />} />
         <Route path="contacts" element={<ContactsAdmin />} />
+        <Route path="account" element={<ChangePassword />} />
       </Route>
     </Routes>
   );
