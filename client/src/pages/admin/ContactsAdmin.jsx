@@ -38,41 +38,43 @@ export default function ContactsAdmin() {
         <small className="text-muted">{items.length} פניות בסך הכל</small>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>סטטוס</th>
-            <th>תאריך</th>
-            <th>שם</th>
-            <th>טלפון</th>
-            <th>נושא</th>
-            <th>מייל נשלח</th>
-            <th style={{ width: 220 }}>פעולות</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((c) => (
-            <tr key={c._id} style={c.isRead ? { opacity: 0.7 } : undefined}>
-              <td>{c.isRead ? '✓ נקרא' : <strong style={{ color: 'var(--color-accent)' }}>חדש</strong>}</td>
-              <td>{formatDate(c.createdAt)}</td>
-              <td>{c.name}</td>
-              <td><a href={`tel:${c.phone}`}>{c.phone}</a></td>
-              <td>{c.subject || '—'}</td>
-              <td>{c.emailSent ? '✉️' : '—'}</td>
-              <td className="admin-actions">
-                <button className="btn btn-outline" onClick={() => setSelected(c)}>צפייה</button>
-                {!c.isRead && (
-                  <button className="btn" onClick={() => markRead(c._id)}>סמן כנקרא</button>
-                )}
-                <button className="btn btn-danger" onClick={() => remove(c._id)}>מחיקה</button>
-              </td>
+      <div className="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>סטטוס</th>
+              <th>תאריך</th>
+              <th>שם</th>
+              <th>טלפון</th>
+              <th>נושא</th>
+              <th>מייל נשלח</th>
+              <th style={{ width: 220 }}>פעולות</th>
             </tr>
-          ))}
-          {items.length === 0 && (
-            <tr><td colSpan={7} className="text-center text-muted">אין פניות עדיין.</td></tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {items.map((c) => (
+              <tr key={c._id} style={c.isRead ? { opacity: 0.7 } : undefined}>
+                <td>{c.isRead ? '✓ נקרא' : <strong style={{ color: 'var(--color-accent)' }}>חדש</strong>}</td>
+                <td>{formatDate(c.createdAt)}</td>
+                <td>{c.name}</td>
+                <td><a href={`tel:${c.phone}`}>{c.phone}</a></td>
+                <td>{c.subject || '—'}</td>
+                <td>{c.emailSent ? '✉️' : '—'}</td>
+                <td className="admin-actions">
+                  <button className="btn btn-outline" onClick={() => setSelected(c)}>צפייה</button>
+                  {!c.isRead && (
+                    <button className="btn" onClick={() => markRead(c._id)}>סמן כנקרא</button>
+                  )}
+                  <button className="btn btn-danger" onClick={() => remove(c._id)}>מחיקה</button>
+                </td>
+              </tr>
+            ))}
+            {items.length === 0 && (
+              <tr><td colSpan={7} className="text-center text-muted">אין פניות עדיין.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {selected && (
         <div className="admin-modal-backdrop" onClick={() => setSelected(null)}>

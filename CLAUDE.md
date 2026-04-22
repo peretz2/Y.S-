@@ -134,6 +134,22 @@ When editing default content, edit this file and rerun `npm run seed`. Don't add
 - `client/src/styles/global.css` owns the design tokens (CSS custom properties for colors, spacing, radii). Component CSS files sit next to the component (`Navbar.jsx` + `Navbar.css`). Prefer tokens over raw hex values.
 - Avoid mixing left/right properties — use `margin-inline-start` / `padding-inline-end` when practical.
 
+### Theme (light / dark mode)
+
+- `client/src/theme/ThemeContext.jsx` owns theme state. On first load it reads `localStorage['ys_theme']`; if absent, falls back to `prefers-color-scheme`. Writing to state updates the `data-theme` attribute on `<html>` and persists.
+- **No-flicker script** in `client/index.html` (runs before React) sets `data-theme` before first paint. Don't move this to a React effect — it will flash.
+- CSS tokens are defined twice in `global.css`: under `:root` for light, under `html[data-theme="dark"]` for dark. All components must use the tokens; hardcoded hex values (except for deliberately dark-only sections like the hero, footer, admin sidebar, and the `.cta-band`) will not switch correctly.
+- `color-mix()` is used in a few places (alerts, translucent thumb labels) to derive theme-aware tints. These require modern browsers; if you need to support older ones, hardcode light + dark variants instead.
+- `<ThemeToggle>` lives in the navbar. There is intentionally no third "auto" option in the UI — if the user never toggles, OS preference wins automatically through the no-flicker script.
+
+### Responsive design
+
+- Breakpoints: 900px (tablet), 860px (navbar → burger), 760px (admin sidebar → top nav), 600px (cards collapse), 480px (container padding tightens), 420px (hide subtitle text in brand).
+- `.contact-grid` utility in `global.css` handles Contact page's form + sidebar layout; don't reinvent with inline `gridTemplateColumns`.
+- Admin tables wrap in `<div className="table-responsive">` which provides horizontal scroll with a `min-width: 640px` on the table itself. Always wrap new admin tables this way — don't set `overflow-x` on the page container.
+- Buttons and form inputs have `min-height: 44px` to meet iOS touch-target guidelines. Form inputs use `font-size: 16px` to prevent iOS auto-zoom on focus.
+- `body` scroll is locked while the mobile nav menu is open (Navbar.jsx effect) to prevent background scrolling.
+
 ## Conventions specific to this repo
 
 - **All UI copy is Hebrew.** English leaks only into code identifiers (class names, route paths, slugs). Server error messages are also Hebrew because the client displays them verbatim (`err.response.data.error`).

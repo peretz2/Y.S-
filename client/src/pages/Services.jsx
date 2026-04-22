@@ -34,7 +34,7 @@ export default function Services() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
                   <div style={{
                     width: 56, height: 56, borderRadius: 12,
-                    background: 'linear-gradient(135deg, #f5efe1, #fff)',
+                    background: 'linear-gradient(135deg, var(--color-surface-warm), var(--color-surface))',
                     border: '1px solid var(--color-border)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: '1.8rem', flexShrink: 0,

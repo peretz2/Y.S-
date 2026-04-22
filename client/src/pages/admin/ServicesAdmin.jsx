@@ -68,34 +68,36 @@ export default function ServicesAdmin() {
         <button className="btn" onClick={openNew}>+ שירות חדש</button>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>סדר</th>
-            <th>שם</th>
-            <th>מזהה (slug)</th>
-            <th>פעיל</th>
-            <th style={{ width: 160 }}>פעולות</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((s) => (
-            <tr key={s._id}>
-              <td>{s.order}</td>
-              <td>{s.icon} {s.title}</td>
-              <td><code>{s.slug}</code></td>
-              <td>{s.isActive ? '✅' : '—'}</td>
-              <td className="admin-actions">
-                <button className="btn btn-outline" onClick={() => openEdit(s)}>עריכה</button>
-                <button className="btn btn-danger" onClick={() => remove(s._id)}>מחיקה</button>
-              </td>
+      <div className="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>סדר</th>
+              <th>שם</th>
+              <th>מזהה (slug)</th>
+              <th>פעיל</th>
+              <th style={{ width: 160 }}>פעולות</th>
             </tr>
-          ))}
-          {items.length === 0 && (
-            <tr><td colSpan={5} className="text-center text-muted">אין שירותים עדיין.</td></tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {items.map((s) => (
+              <tr key={s._id}>
+                <td>{s.order}</td>
+                <td>{s.icon} {s.title}</td>
+                <td><code>{s.slug}</code></td>
+                <td>{s.isActive ? '✅' : '—'}</td>
+                <td className="admin-actions">
+                  <button className="btn btn-outline" onClick={() => openEdit(s)}>עריכה</button>
+                  <button className="btn btn-danger" onClick={() => remove(s._id)}>מחיקה</button>
+                </td>
+              </tr>
+            ))}
+            {items.length === 0 && (
+              <tr><td colSpan={5} className="text-center text-muted">אין שירותים עדיין.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {editing && (
         <div className="admin-modal-backdrop" onClick={close}>

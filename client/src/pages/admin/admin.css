@@ -9,12 +9,41 @@
 }
 
 .admin-side {
-  background: var(--color-primary-dark);
+  background: #082645;
   color: #d7dee8;
   padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+@media (max-width: 760px) {
+  .admin-side {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    overflow-x: auto;
+  }
+  .admin-side .admin-brand { padding-bottom: 0; border-bottom: none; flex-shrink: 0; }
+  .admin-side .admin-nav {
+    flex: 1;
+    flex-direction: row;
+    gap: 0.25rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .admin-side .admin-nav a { flex-shrink: 0; padding: 0.5rem 0.8rem; }
+  .admin-side .admin-user {
+    padding-top: 0;
+    border-top: none;
+    border-inline-start: 1px solid rgba(255,255,255,0.1);
+    padding-inline-start: 1rem;
+    flex-shrink: 0;
+  }
+  .admin-side .admin-user small { display: none; }
 }
 .admin-brand {
   display: flex;
@@ -53,6 +82,10 @@
 .admin-main {
   padding: 2rem;
   overflow-x: auto;
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .admin-main { padding: 1.2rem 1rem; }
 }
 
 .admin-header {
@@ -76,7 +109,9 @@
   z-index: 100;
 }
 .admin-modal {
-  background: #fff;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
   border-radius: var(--radius-md);
   width: 100%;
   max-width: 640px;
@@ -99,7 +134,7 @@
   margin-bottom: 2rem;
 }
 .stat-box {
-  background: #fff;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 1.2rem;

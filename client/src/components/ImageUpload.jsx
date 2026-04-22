@@ -55,7 +55,7 @@ export default function ImageUpload({ value, onChange, label = 'תמונה' }) {
         <div style={{
           display: 'flex', alignItems: 'center', gap: '1rem',
           padding: '0.5rem', border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-sm)', background: '#fff',
+          borderRadius: 'var(--radius-sm)', background: 'var(--color-surface)',
         }}>
           <img
             src={value} alt="preview"

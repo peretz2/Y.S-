@@ -63,38 +63,40 @@ export default function ProjectsAdmin() {
         <button className="btn" onClick={openNew}>+ פרויקט חדש</button>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>סדר</th>
-            <th>שם</th>
-            <th>קטגוריה</th>
-            <th>מיקום</th>
-            <th>שנה</th>
-            <th>מומלץ</th>
-            <th style={{ width: 160 }}>פעולות</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((p) => (
-            <tr key={p._id}>
-              <td>{p.order}</td>
-              <td>{p.title}</td>
-              <td>{p.category}</td>
-              <td>{p.location}</td>
-              <td>{p.year || '—'}</td>
-              <td>{p.isFeatured ? '⭐' : '—'}</td>
-              <td className="admin-actions">
-                <button className="btn btn-outline" onClick={() => openEdit(p)}>עריכה</button>
-                <button className="btn btn-danger" onClick={() => remove(p._id)}>מחיקה</button>
-              </td>
+      <div className="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>סדר</th>
+              <th>שם</th>
+              <th>קטגוריה</th>
+              <th>מיקום</th>
+              <th>שנה</th>
+              <th>מומלץ</th>
+              <th style={{ width: 160 }}>פעולות</th>
             </tr>
-          ))}
-          {items.length === 0 && (
-            <tr><td colSpan={7} className="text-center text-muted">אין פרויקטים עדיין.</td></tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {items.map((p) => (
+              <tr key={p._id}>
+                <td>{p.order}</td>
+                <td>{p.title}</td>
+                <td>{p.category}</td>
+                <td>{p.location}</td>
+                <td>{p.year || '—'}</td>
+                <td>{p.isFeatured ? '⭐' : '—'}</td>
+                <td className="admin-actions">
+                  <button className="btn btn-outline" onClick={() => openEdit(p)}>עריכה</button>
+                  <button className="btn btn-danger" onClick={() => remove(p._id)}>מחיקה</button>
+                </td>
+              </tr>
+            ))}
+            {items.length === 0 && (
+              <tr><td colSpan={7} className="text-center text-muted">אין פרויקטים עדיין.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {editing && (
         <div className="admin-modal-backdrop" onClick={close}>

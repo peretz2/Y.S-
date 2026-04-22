@@ -37,7 +37,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid" style={{ gridTemplateColumns: '1.2fr 1fr', gap: '3rem' }}>
+        <div className="contact-grid">
           <form onSubmit={onSubmit} className="card" style={{ padding: '2rem' }}>
             {status.type && (
               <div className={`alert alert-${status.type}`}>{status.text}</div>

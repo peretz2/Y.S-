@@ -67,8 +67,8 @@ export default function Projects() {
                 }}>
                   {!p.imageUrl && (
                     <span style={{
-                      color: '#82724b', fontWeight: 700,
-                      background: 'rgba(255,255,255,0.6)',
+                      color: 'var(--color-text)', fontWeight: 700,
+                      background: 'color-mix(in srgb, var(--color-surface) 80%, transparent)',
                       padding: '0.3rem 0.9rem', borderRadius: 999,
                     }}>{p.category}</span>
                   )}
