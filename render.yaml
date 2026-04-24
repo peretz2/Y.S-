@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: ys-engineers-api
+    runtime: node
+    plan: starter
+    region: frankfurt
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: COOKIE_NAME
+        value: ys_auth
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: UPLOAD_MAX_BYTES
+        value: "5242880"
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_SECURE
+        value: "false"
+      # --- set these in the Render dashboard (sync: false means "not synced from blueprint") ---
+      - key: MONGO_URI
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false          # e.g. https://ys-engineers.vercel.app
+      - key: PUBLIC_URL
+        sync: false          # same Vercel URL, used in password-reset email links
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: MAIL_TO
+        sync: false
+    disk:
+      name: uploads
+      mountPath: /var/data
+      sizeGB: 1
