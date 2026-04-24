@@ -5,16 +5,14 @@ import './Footer.css';
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="footer">
-      <div className="container footer-grid">
+    <footer className="ft">
+      <div className="wrap ft-top">
         <div>
           <h3>{companyInfo.name}</h3>
-          <p className="text-muted">{companyInfo.tagline}</p>
-          <p className="text-muted" style={{ fontSize: '0.85rem' }}>
-            {companyInfo.nameEn}
+          <p className="ft-tag">
+            {companyInfo.nameEn} — נגרות וחיפויים ברמה אדריכלית. מייצרים ומתקינים מגבעת אלה מאז {companyInfo.founded}.
           </p>
         </div>
-
         <div>
           <h4>ניווט</h4>
           <ul>
@@ -25,42 +23,30 @@ export default function Footer() {
             <li><Link to="/contact">צור קשר</Link></li>
           </ul>
         </div>
-
         <div>
           <h4>יצירת קשר</h4>
           <ul>
-            <li>📍 {companyInfo.address}</li>
-            <li>📞 <a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a></li>
-            <li>📠 {companyInfo.fax}</li>
-            <li>✉️ <a href={`mailto:${companyInfo.email}`}>{companyInfo.email}</a></li>
+            <li>{companyInfo.address}</li>
+            <li><a href={`tel:${companyInfo.phone}`} className="ltr">{companyInfo.phoneDisplay}</a></li>
+            <li><a href={`mailto:${companyInfo.email}`} className="ltr">{companyInfo.email}</a></li>
           </ul>
         </div>
-
         <div>
-          <h4>שעות פעילות</h4>
+          <h4>שעות</h4>
           <ul>
             <li>{companyInfo.hours.weekdays}</li>
             <li>{companyInfo.hours.friday}</li>
-            <li>שבת: סגור</li>
+            <li className="ft-muted">שבת · סגור</li>
           </ul>
         </div>
       </div>
-
-      <div className="footer-legal">
-        <div className="container">
-          <nav aria-label="קישורי מדיניות">
-            <Link to="/support">שירות ותמיכה</Link>
-            <span aria-hidden="true">·</span>
-            <Link to="/terms">תנאי שימוש</Link>
-            <span aria-hidden="true">·</span>
-            <Link to="/privacy">מדיניות פרטיות</Link>
-            <span aria-hidden="true">·</span>
-            <Link to="/accessibility">הצהרת נגישות</Link>
-          </nav>
-          <span className="footer-copy">
-            © {year} {companyInfo.name}. כל הזכויות שמורות.
-          </span>
-        </div>
+      <div className="wrap ft-bot">
+        <span>© {year} {companyInfo.name} · כל הזכויות שמורות</span>
+        <nav aria-label="חוקי">
+          <Link to="/terms">תנאי שימוש</Link>
+          <Link to="/privacy">פרטיות</Link>
+          <Link to="/accessibility">נגישות</Link>
+        </nav>
       </div>
     </footer>
   );
