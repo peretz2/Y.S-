@@ -1,0 +1,125 @@
+/* quick-contact blocks */
+.sup-contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  border-top: 1px solid var(--color-ink);
+  padding-top: 32px;
+}
+.sup-block {
+  padding: 36px 32px 40px;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.sup-block .mono { color: var(--color-ink-3); }
+.sup-block h3 {
+  margin: 0; font-family: var(--font-serif);
+  font-size: 28px; font-weight: 500; letter-spacing: -0.01em;
+}
+.sup-block p { margin: 0; color: var(--color-ink-2); line-height: 1.6; font-size: 15px; max-width: 44ch; }
+.sup-phone {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 500; letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-top: 8px;
+}
+.sup-phone:hover { color: var(--color-accent); }
+.sup-hours {
+  padding-top: 14px; margin-top: 4px;
+  border-top: 1px solid var(--color-line);
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.04em; color: var(--color-ink-3);
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+.sup-block-dark {
+  background: var(--color-dark);
+  border-color: var(--color-dark);
+  color: var(--color-dark-ink);
+}
+.sup-block-dark .mono { color: #bcb6a6; }
+.sup-block-dark h3 { color: #fbf9f4; }
+.sup-block-dark p { color: #bcb6a6; }
+.sup-block-dark .btn.btn-inv { align-self: start; margin-top: 8px; }
+
+@media (max-width: 900px) {
+  .sup-contact-grid { grid-template-columns: 1fr; }
+}
+
+/* FAQ list */
+.faq-list { border-top: 1px solid var(--color-ink); }
+.faq-item { border-bottom: 1px solid var(--color-line); }
+.faq-item summary {
+  list-style: none;
+  display: grid; grid-template-columns: 60px 1fr 32px;
+  align-items: baseline; gap: 24px;
+  padding: 24px 0;
+  cursor: pointer;
+  transition: background .2s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { background: var(--color-bg-2); padding-inline-start: 12px; padding-inline-end: 12px; }
+.faq-item .faq-n {
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--color-ink-3); letter-spacing: 0.08em;
+}
+.faq-item .faq-q {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2vw, 22px); font-weight: 500;
+  letter-spacing: -0.01em; color: var(--color-ink);
+}
+.faq-item .faq-icon {
+  justify-self: end;
+  font-family: var(--font-mono); font-size: 22px;
+  color: var(--color-accent);
+  transition: transform .2s;
+  line-height: 1;
+}
+.faq-item[open] .faq-icon { transform: rotate(45deg); }
+.faq-item[open] summary { background: var(--color-bg-2); padding-inline-start: 12px; padding-inline-end: 12px; }
+.faq-a {
+  margin: 0 0 24px;
+  padding: 0 12px 0 84px;
+  color: var(--color-ink-2);
+  line-height: 1.65; font-size: 15px;
+  max-width: 72ch;
+}
+@media (max-width: 600px) {
+  .faq-item summary { grid-template-columns: 40px 1fr 24px; gap: 16px; }
+  .faq-a { padding: 0 12px 0 56px; }
+}
+
+/* channels */
+.sup-ch-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-ink);
+}
+.sup-ch {
+  padding: 32px 24px 36px;
+  border-inline-start: 1px solid var(--color-line);
+  display: flex; flex-direction: column; gap: 12px;
+  color: inherit; text-decoration: none;
+  transition: background .2s;
+}
+.sup-ch:first-child { border-inline-start: 0; }
+a.sup-ch:hover { background: var(--color-bg-2); }
+.sup-ch .mono { color: var(--color-ink-3); }
+.sup-ch-v {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 500; letter-spacing: -0.01em;
+  color: var(--color-ink);
+  word-break: break-word;
+}
+a.sup-ch:hover .sup-ch-v { color: var(--color-accent); }
+
+@media (max-width: 900px) {
+  .sup-ch-grid { grid-template-columns: 1fr; }
+  .sup-ch { border-inline-start: 0; border-top: 1px solid var(--color-line); }
+  .sup-ch:first-child { border-top: 0; }
+}
+
+.sup-closer {
+  margin: 40px 0 0; color: var(--color-ink-3); font-size: 14px;
+}
+.sup-closer a { color: var(--color-accent); border-bottom: 1px solid currentColor; }

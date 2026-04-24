@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import api, { companyInfo } from '../api.js';
+import './Contact.css';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', subject: '', message: '' });
@@ -27,74 +28,120 @@ export default function Contact() {
   }
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="section-head">
-          <span className="badge badge-accent">צור קשר</span>
-          <h1 style={{ marginTop: '1rem' }}>בואו נדבר</h1>
-          <p className="text-muted">
-            השאירו פרטים ונחזור אליכם תוך יום עסקים – או התקשרו אלינו ישירות.
-          </p>
+    <>
+      <section className="wrap page-hero">
+        <div className="hero-eyebrow">
+          <span className="line" /><span>§ צור קשר · שיחה ראשונית</span>
         </div>
+        <h1 className="display">
+          בואו נדבר.<br /><em>בגובה העיניים.</em>
+        </h1>
+        <div className="page-lead">
+          <p>
+            השאירו פרטים בטופס ונחזור אליכם תוך יום עסקים אחד — או התקשרו ישירות למפעל בגבעת אלה.
+            אם אתם אדריכלים או קבלנים ראשיים, אפשר לצרף גם תכניות / קבצי CAD לפנייה.
+          </p>
+          <p className="mono">Response &lt; 24h · בעברית או באנגלית</p>
+        </div>
+      </section>
 
-        <div className="contact-grid">
-          <form onSubmit={onSubmit} className="card" style={{ padding: '2rem' }}>
+      <section className="wrap sec contact-sec">
+        <div className="contact-layout">
+          <form onSubmit={onSubmit} className="contact-form" noValidate>
+            <div className="form-head">
+              <div className="idx"><span className="n">§01</span><span className="k">טופס פנייה</span></div>
+              <h2>
+                ספרו לנו על<br /><em>הפרויקט.</em>
+              </h2>
+            </div>
+
             {status.type && (
-              <div className={`alert alert-${status.type}`}>{status.text}</div>
+              <div className={`alert alert-${status.type === 'success' ? 'success' : 'error'}`} role="status">
+                {status.text}
+              </div>
             )}
-            <div className="form-group">
-              <label>שם מלא *</label>
-              <input type="text" required value={form.name} onChange={update('name')} />
-            </div>
-            <div className="grid grid-2" style={{ gap: '1rem' }}>
-              <div className="form-group">
-                <label>טלפון *</label>
-                <input type="tel" required value={form.phone} onChange={update('phone')} />
+
+            <div className="form-grid">
+              <div className="field full">
+                <label htmlFor="c-name">שם מלא *</label>
+                <input id="c-name" type="text" required autoComplete="name"
+                  value={form.name} onChange={update('name')} />
               </div>
-              <div className="form-group">
-                <label>אימייל</label>
-                <input type="email" value={form.email} onChange={update('email')} />
+              <div className="field">
+                <label htmlFor="c-phone">טלפון *</label>
+                <input id="c-phone" type="tel" required autoComplete="tel"
+                  value={form.phone} onChange={update('phone')} />
+              </div>
+              <div className="field">
+                <label htmlFor="c-email">אימייל</label>
+                <input id="c-email" type="email" autoComplete="email"
+                  value={form.email} onChange={update('email')} />
+              </div>
+              <div className="field full">
+                <label htmlFor="c-subject">נושא</label>
+                <input id="c-subject" type="text"
+                  value={form.subject} onChange={update('subject')}
+                  placeholder="למשל: חיפוי לובי בבניין משרדים" />
+              </div>
+              <div className="field full">
+                <label htmlFor="c-message">הודעה *</label>
+                <textarea id="c-message" required rows={5}
+                  value={form.message} onChange={update('message')} />
               </div>
             </div>
-            <div className="form-group">
-              <label>נושא</label>
-              <input type="text" value={form.subject} onChange={update('subject')} placeholder="למשל: חיפוי לובי" />
-            </div>
-            <div className="form-group">
-              <label>הודעה *</label>
-              <textarea required value={form.message} onChange={update('message')} />
-            </div>
-            <button type="submit" className="btn btn-accent" disabled={submitting} style={{ width: '100%' }}>
-              {submitting ? 'שולח…' : 'שליחת פנייה'}
+
+            <button type="submit" className="btn contact-submit" disabled={submitting}>
+              {submitting ? 'שולח…' : 'שליחת פנייה ←'}
             </button>
           </form>
 
-          <aside>
-            <div className="card" style={{ marginBottom: '1rem' }}>
-              <h3>פרטי התקשרות</h3>
-              <p style={{ margin: '0.3rem 0' }}>
-                📍 <strong>{companyInfo.address}</strong><br />
-                <small className="text-muted">מיקוד {companyInfo.postal}</small>
-              </p>
-              <p style={{ margin: '0.8rem 0' }}>
-                📞 <a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a>
-              </p>
-              <p style={{ margin: '0.8rem 0' }}>
-                📠 {companyInfo.fax}
-              </p>
-              <p style={{ margin: '0.8rem 0' }}>
-                ✉️ <a href={`mailto:${companyInfo.email}`}>{companyInfo.email}</a>
-              </p>
+          <aside className="contact-side">
+            <div className="side-block">
+              <div className="mono">פרטי התקשרות</div>
+              <address>
+                <div className="side-line">
+                  <span className="side-k">Phone</span>
+                  <a href={`tel:${companyInfo.phone}`} className="ltr">{companyInfo.phoneDisplay}</a>
+                </div>
+                <div className="side-line">
+                  <span className="side-k">Fax</span>
+                  <span className="ltr">{companyInfo.fax}</span>
+                </div>
+                <div className="side-line">
+                  <span className="side-k">Email</span>
+                  <a href={`mailto:${companyInfo.email}`} className="ltr">{companyInfo.email}</a>
+                </div>
+                <div className="side-line">
+                  <span className="side-k">Address</span>
+                  <span>{companyInfo.address}<br /><span className="muted">מיקוד {companyInfo.postal}</span></span>
+                </div>
+              </address>
             </div>
-            <div className="card">
-              <h3>שעות פעילות</h3>
-              <p>{companyInfo.hours.weekdays}</p>
-              <p>{companyInfo.hours.friday}</p>
-              <p className="text-muted">שבת: סגור</p>
+
+            <div className="side-block">
+              <div className="mono">שעות פעילות</div>
+              <div className="side-line">
+                <span className="side-k">א׳ – ה׳</span>
+                <span>{companyInfo.hours.weekdays.split(':').slice(1).join(':').trim()}</span>
+              </div>
+              <div className="side-line">
+                <span className="side-k">ו׳</span>
+                <span>{companyInfo.hours.friday.split(':').slice(1).join(':').trim()}</span>
+              </div>
+              <div className="side-line">
+                <span className="side-k">שבת</span>
+                <span className="muted">סגור</span>
+              </div>
+            </div>
+
+            <div className="side-block side-note">
+              <p>
+                אדריכלים וקבלנים ראשיים — אפשר לשלוח תכניות ו/או קבצי CAD למייל, ואנחנו נחזור עם כיוון מחיר ראשוני תוך יום עסקים.
+              </p>
             </div>
           </aside>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

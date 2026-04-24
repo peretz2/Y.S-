@@ -3,13 +3,15 @@ import { companyInfo } from '../api.js';
 
 export default function Accessibility() {
   return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: 860 }}>
-        <span className="badge badge-accent">הצהרת נגישות</span>
-        <h1 style={{ marginTop: '1rem' }}>הצהרת נגישות</h1>
-        <p className="text-muted">
+    <section className="wrap">
+      <article className="prose">
+        <div className="prose-eyebrow">
+          <span className="line" /><span>§ חוקי · Accessibility</span>
+        </div>
+        <h1>הצהרת <em>נגישות.</em></h1>
+        <div className="prose-meta">
           עודכן לאחרונה: {new Date().toLocaleDateString('he-IL')}
-        </p>
+        </div>
 
         <h2>מחויבות לנגישות</h2>
         <p>
@@ -26,7 +28,7 @@ export default function Accessibility() {
         </p>
 
         <h2>התאמות הנגישות באתר</h2>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li>האתר כולל תפריט נגישות צף המאפשר: הגדלת טקסט, ניגודיות גבוהה,
             היפוך צבעים, הדגשת קישורים, החלפה לגופן קריא, הדגשת כותרות ועצירת אנימציות.</li>
           <li>האתר תומך בניווט באמצעות מקלדת בלבד (מקש Tab) ובסגירת תפריטים באמצעות Escape.</li>
@@ -50,23 +52,23 @@ export default function Accessibility() {
           במידה ונתקלתם בבעיית נגישות, או שיש לכם שאלות והצעות בנושא נגישות,
           אתם מוזמנים לפנות אלינו:
         </p>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li><strong>שם העסק:</strong> {companyInfo.name}</li>
           <li><strong>כתובת:</strong> {companyInfo.address}</li>
           <li><strong>טלפון:</strong> <a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a></li>
           <li><strong>דוא"ל:</strong> <a href={`mailto:${companyInfo.email}`}>{companyInfo.email}</a></li>
         </ul>
 
-        <p className="text-muted" style={{ marginTop: '2rem', fontSize: '0.9rem' }}>
+        <p className="prose-note">
           אנו מתחייבים לבחון כל פנייה ולחזור למבקש/ת עם מענה בהקדם האפשרי,
           ולא יאוחר מ-45 ימים ממועד קבלת הפנייה.
         </p>
 
-        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '2rem', flexWrap: 'wrap' }}>
+        <div className="prose-actions">
           <Link to="/contact" className="btn">צור קשר</Link>
-          <Link to="/" className="btn btn-outline">לדף הבית</Link>
+          <Link to="/" className="btn btn-ghost">לדף הבית</Link>
         </div>
-      </div>
+      </article>
     </section>
   );
 }

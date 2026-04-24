@@ -1,0 +1,79 @@
+.contact-sec { padding-top: 80px; }
+
+.contact-layout {
+  display: grid; grid-template-columns: 1.5fr 1fr;
+  gap: 64px; align-items: start;
+}
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+  .contact-sec { padding-top: 48px; }
+}
+
+/* form */
+.contact-form .form-head { margin-bottom: 40px; }
+.contact-form .form-head .idx {
+  display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px;
+}
+.contact-form .form-head .idx .n {
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--color-ink-3); letter-spacing: 0.14em;
+}
+.contact-form .form-head .idx .k {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--color-ink-3); letter-spacing: 0.2em; text-transform: uppercase;
+}
+.contact-form .form-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.8vw, 48px);
+  line-height: 1.02; font-weight: 500; letter-spacing: -0.02em;
+}
+.contact-form .form-head h2 em { color: var(--color-accent); font-style: italic; font-weight: 400; }
+
+.contact-submit {
+  margin-top: 32px;
+  min-width: 220px;
+}
+
+/* sidebar */
+.contact-side {
+  display: flex; flex-direction: column; gap: 40px;
+  padding-top: 8px;
+}
+.side-block .mono {
+  display: block;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-ink);
+}
+.side-line {
+  display: grid; grid-template-columns: 86px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 15px;
+  color: var(--color-ink-2);
+}
+.side-line:last-child { border-bottom: 0; }
+.side-line .side-k {
+  font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-ink-3);
+  padding-top: 2px;
+}
+.side-line .muted { color: var(--color-ink-3); font-size: 13px; }
+.side-line a { color: var(--color-ink); transition: color .2s; }
+.side-line a:hover { color: var(--color-accent); }
+
+address { font-style: normal; display: block; }
+
+.side-note {
+  padding: 20px 22px;
+  background: var(--color-bg-2);
+  border-inline-start: 2px solid var(--color-accent);
+}
+.side-note p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 15.5px; line-height: 1.55;
+  color: var(--color-ink-2);
+}

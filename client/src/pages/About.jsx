@@ -1,63 +1,96 @@
+import { Link } from 'react-router-dom';
 import { companyInfo } from '../api.js';
+import './About.css';
+
+const EXPERTISE = [
+  { t: 'נגרות לבניין', d: 'דלתות, ארונות, מטבחים, ספריות ורהיטים בהזמנה אישית לפרויקטים פרטיים ומסחריים.' },
+  { t: 'חיפויי HPL פנים וחוץ', d: 'חזיתות בניינים, לובאים ומשרדים בעמידות גבוהה ובגימור אדריכלי.' },
+  { t: 'חיפוי לובאים', d: 'שילוב עץ, HPL, קוריאן ומתכת לעיצוב לובי ייחודי עם נוכחות אדריכלית.' },
+  { t: 'ייצור CNC מותאם', d: 'מפעל CNC מודרני לפרויקטים מורכבים ובלוחות זמנים צפופים.' },
+  { t: 'ליווי הנדסי', d: 'עבודה צמודה עם אדריכלים, קבלנים ומזמינים — מתכנון ועד מסירה.' },
+];
+
+const VALUES = [
+  { k: '§01', t: 'מקצועיות', d: 'הקפדה על תקנים, פרטים ואיכות גמר בכל פרויקט — גם בפריט בודד.' },
+  { k: '§02', t: 'אמינות', d: 'עמידה בלוחות זמנים ובתקציב, תקשורת ברורה ושקופה לאורך הדרך.' },
+  { k: '§03', t: 'חדשנות', d: 'שימוש בטכנולוגיות ייצור מתקדמות ובחומרים איכותיים בהתאמה אישית.' },
+];
 
 export default function About() {
   return (
     <>
-      <section className="section">
-        <div className="container" style={{ maxWidth: 860 }}>
-          <span className="badge badge-accent">אודות החברה</span>
-          <h1 style={{ marginTop: '1rem' }}>מי אנחנו?</h1>
-          <p style={{ fontSize: '1.1rem' }}>
-            חברת <strong>{companyInfo.name}</strong> פועלת מאז שנת {companyInfo.founded}
-            {' '}ממפעלה בגבעת אלה, ומתמחה בעבודות נגרות לבניין, חיפויי HPL וחיפויי לובי
-            בפרויקטים פרטיים, מסחריים וציבוריים. הצוות שלנו מונה בין 11 ל-20 עובדים –
-            מהנדסים, טכנאים ונגרים מקצועיים, המעניקים שירות מקצה לקצה: מהתכנון והייצור
-            ועד להתקנה באתר.
+      <section className="wrap page-hero">
+        <div className="hero-eyebrow">
+          <span className="line" /><span>§ אודות · Est. {companyInfo.founded}</span>
+        </div>
+        <h1 className="display">
+          צוות אחד.<br />מפעל אחד.<br /><em>עשרים שנה.</em>
+        </h1>
+        <div className="page-lead">
+          <p>
+            חברת <strong>{companyInfo.name}</strong> פועלת מאז {companyInfo.founded} ממפעלה ב{companyInfo.address.split(',')[1].trim()},
+            ומתמחה בנגרות לבניין, חיפויי HPL וחיפוי לובאים לפרויקטים פרטיים, מסחריים וציבוריים.
+            הצוות שלנו מונה עשרים מהנדסים, טכנאים ונגרים, המעניקים שירות מקצה לקצה — מתכנון וייצור ועד התקנה באתר.
           </p>
+        </div>
+      </section>
 
-          <div className="grid grid-2" style={{ margin: '2.5rem 0' }}>
-            <div className="card">
-              <h3>החזון שלנו</h3>
-              <p className="text-muted">
-                לספק פתרונות נגרות וחיפוי שמשלבים אסתטיקה, עמידות ויעילות כלכלית –
-                מתוך הקפדה בלתי מתפשרת על פרטים ואיכות גמר.
-              </p>
-            </div>
-            <div className="card">
-              <h3>מה מייחד אותנו</h3>
-              <p className="text-muted">
-                שילוב של מפעל ייצור מודרני עם צוות הנדסי מנוסה. אנו לוקחים אחריות מלאה
-                על כל שלב בפרויקט – תכנון, רכש, ייצור, לוגיסטיקה והתקנה.
-              </p>
-            </div>
-          </div>
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§01</span><span className="k">החזון</span></div>
+          <h2>אסתטיקה, עמידות,<br /><em>יעילות כלכלית.</em></h2>
+        </div>
+        <div className="about-vision">
+          <p className="vision-a">
+            אנחנו מאמינים שעבודת נגרות ברמה אדריכלית אינה שירות — היא שותפות.
+            כל פרויקט מתחיל בהבנת הצורך האמיתי של המזמין והאדריכל, וממשיך בפרטים הקטנים —
+            מחיבור בין חומרים ועד לגמר המדויק של קצה אחד.
+          </p>
+          <p className="vision-b">
+            שילוב של מפעל ייצור מודרני עם צוות הנדסי מנוסה מאפשר לנו לקחת אחריות מלאה על כל שלב:
+            תכנון, רכש, ייצור, לוגיסטיקה והתקנה. תוצאה אחת, גורם אחראי אחד.
+          </p>
+        </div>
+      </section>
 
-          <h2>התמחויות מרכזיות</h2>
-          <ul style={{ lineHeight: 2 }}>
-            <li><strong>נגרות לבניין</strong> – דלתות, ארונות, מטבחים, ספריות ורהיטים בהזמנה אישית.</li>
-            <li><strong>חיפויי HPL פנים וחוץ</strong> – חזיתות בניינים, לובאים ומשרדים בעמידות גבוהה.</li>
-            <li><strong>חיפוי לובאים</strong> – שילוב עץ, HPL, קוריאן ומתכת לעיצוב ייחודי.</li>
-            <li><strong>ייצור מוצרי עץ מותאמים</strong> – מפעל CNC לפרויקטים מורכבים ובלוחות זמנים צפופים.</li>
-            <li><strong>ליווי הנדסי</strong> – עבודה צמודה עם אדריכלים, קבלנים ומזמינים.</li>
-          </ul>
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§02</span><span className="k">התמחויות</span></div>
+          <h2>חמישה תחומים.<br /><em>שפה אחת.</em></h2>
+        </div>
+        <div className="svc-list about-list">
+          {EXPERTISE.map((e, i) => (
+            <div key={e.t} className="svc-row">
+              <span className="num">{String(i + 1).padStart(2, '0')}</span>
+              <span className="name">{e.t}</span>
+              <span className="desc">{e.d}</span>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          <h2 style={{ marginTop: '2.5rem' }}>ערכי הליבה</h2>
-          <div className="grid grid-3" style={{ marginTop: '1rem' }}>
-            <div className="card text-center">
-              <div style={{ fontSize: '2rem' }}>🎯</div>
-              <h3>מקצועיות</h3>
-              <p className="text-muted">הקפדה על תקנים, פרטים ואיכות גמר בכל פרויקט.</p>
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§03</span><span className="k">ערכי הליבה</span></div>
+          <h2>שלושה ערכים,<br />שמלווים <em>כל פרויקט.</em></h2>
+        </div>
+        <div className="values">
+          {VALUES.map((v) => (
+            <div key={v.k} className="val-card">
+              <div className="val-k">{v.k}</div>
+              <h3>{v.t}</h3>
+              <p>{v.d}</p>
             </div>
-            <div className="card text-center">
-              <div style={{ fontSize: '2rem' }}>🤝</div>
-              <h3>אמינות</h3>
-              <p className="text-muted">עמידה בלוחות זמנים ובתקציב – ללא הפתעות.</p>
-            </div>
-            <div className="card text-center">
-              <div style={{ fontSize: '2rem' }}>💡</div>
-              <h3>חדשנות</h3>
-              <p className="text-muted">שימוש בטכנולוגיות ייצור מתקדמות ובחומרים איכותיים.</p>
-            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="cta">
+        <div className="wrap cta-inner">
+          <h2>רוצים לשמוע עוד?<br /><em>בואו נתחיל שיחה.</em></h2>
+          <div className="cta-side">
+            <p>שיחת ייעוץ ראשונית ללא עלות. אנחנו עונים בתוך יום עסקים.</p>
+            <Link to="/contact" className="btn btn-inv">לפנייה ←</Link>
           </div>
         </div>
       </section>

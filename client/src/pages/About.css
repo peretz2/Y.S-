@@ -1,0 +1,38 @@
+/* About — vision */
+.about-vision {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  border-top: 1px solid var(--color-ink); padding-top: 40px;
+}
+.about-vision p { font-size: 16px; color: var(--color-ink-2); line-height: 1.7; margin: 0; max-width: 48ch; }
+.about-vision .vision-a { font-family: var(--font-serif); font-size: 22px; line-height: 1.35; color: var(--color-ink); letter-spacing: -0.01em; }
+
+@media (max-width: 900px) {
+  .about-vision { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* About — values cards */
+.values {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-ink);
+}
+.val-card {
+  padding: 40px 28px 44px;
+  border-inline-start: 1px solid var(--color-line);
+}
+.val-card:first-child { border-inline-start: 0; }
+.val-card .val-k {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; color: var(--color-accent);
+  margin-bottom: 18px;
+}
+.val-card h3 {
+  font-family: var(--font-serif); font-size: 24px; font-weight: 500;
+  letter-spacing: -0.01em; margin: 0 0 10px;
+}
+.val-card p { font-size: 14.5px; color: var(--color-ink-2); line-height: 1.55; margin: 0; }
+
+@media (max-width: 900px) {
+  .values { grid-template-columns: 1fr; }
+  .val-card { border-inline-start: 0; border-top: 1px solid var(--color-line); }
+  .val-card:first-child { border-top: 0; }
+}

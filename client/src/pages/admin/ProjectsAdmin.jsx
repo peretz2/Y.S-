@@ -14,8 +14,13 @@ export default function ProjectsAdmin() {
   const [err, setErr] = useState('');
 
   async function load() {
-    const { data } = await api.get('/projects');
-    setItems(data);
+    try {
+      const { data } = await api.get('/projects');
+      setItems(data);
+      setErr('');
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה בטעינת הפרויקטים');
+    }
   }
 
   useEffect(() => { load(); }, []);
@@ -47,8 +52,13 @@ export default function ProjectsAdmin() {
 
   async function remove(id) {
     if (!confirm('למחוק פרויקט זה?')) return;
-    await api.delete(`/projects/${id}`);
-    load();
+    try {
+      await api.delete(`/projects/${id}`);
+      setErr('');
+      await load();
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה במחיקה');
+    }
   }
 
   const update = (k) => (e) => {
@@ -62,6 +72,8 @@ export default function ProjectsAdmin() {
         <h1>פרויקטים</h1>
         <button className="btn" onClick={openNew}>+ פרויקט חדש</button>
       </div>
+
+      {err && !editing && <div className="alert alert-error">{err}</div>}
 
       <div className="table-responsive">
         <table>

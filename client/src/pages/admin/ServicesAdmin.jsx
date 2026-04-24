@@ -13,8 +13,13 @@ export default function ServicesAdmin() {
   const [err, setErr] = useState('');
 
   async function load() {
-    const { data } = await api.get('/services/all');
-    setItems(data);
+    try {
+      const { data } = await api.get('/services/all');
+      setItems(data);
+      setErr('');
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה בטעינת השירותים');
+    }
   }
 
   useEffect(() => { load(); }, []);
@@ -52,8 +57,13 @@ export default function ServicesAdmin() {
 
   async function remove(id) {
     if (!confirm('למחוק שירות זה?')) return;
-    await api.delete(`/services/${id}`);
-    load();
+    try {
+      await api.delete(`/services/${id}`);
+      setErr('');
+      await load();
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה במחיקה');
+    }
   }
 
   const update = (k) => (e) => {
@@ -67,6 +77,8 @@ export default function ServicesAdmin() {
         <h1>שירותים</h1>
         <button className="btn" onClick={openNew}>+ שירות חדש</button>
       </div>
+
+      {err && !editing && <div className="alert alert-error">{err}</div>}
 
       <div className="table-responsive">
         <table>

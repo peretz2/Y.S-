@@ -4,24 +4,38 @@ import api from '../../api.js';
 export default function ContactsAdmin() {
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [err, setErr] = useState('');
 
   async function load() {
-    const { data } = await api.get('/contacts');
-    setItems(data);
+    try {
+      const { data } = await api.get('/contacts');
+      setItems(data);
+      setErr('');
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה בטעינת הפניות');
+    }
   }
 
   useEffect(() => { load(); }, []);
 
   async function markRead(id) {
-    await api.patch(`/contacts/${id}/read`);
-    load();
+    try {
+      await api.patch(`/contacts/${id}/read`);
+      await load();
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה בסימון כנקרא');
+    }
   }
 
   async function remove(id) {
     if (!confirm('למחוק פנייה זו?')) return;
-    await api.delete(`/contacts/${id}`);
-    setSelected(null);
-    load();
+    try {
+      await api.delete(`/contacts/${id}`);
+      setSelected(null);
+      await load();
+    } catch (error) {
+      setErr(error.response?.data?.error || 'שגיאה במחיקה');
+    }
   }
 
   function formatDate(iso) {
@@ -37,6 +51,8 @@ export default function ContactsAdmin() {
         <h1>פניות מהאתר</h1>
         <small className="text-muted">{items.length} פניות בסך הכל</small>
       </div>
+
+      {err && <div className="alert alert-error">{err}</div>}
 
       <div className="table-responsive">
         <table>

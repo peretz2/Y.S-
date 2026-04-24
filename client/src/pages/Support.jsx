@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { companyInfo } from '../api.js';
+import './Support.css';
 
 const FAQ = [
   {
@@ -20,7 +21,7 @@ const FAQ = [
   },
   {
     q: 'האם ניתן להזמין פריטים בודדים של נגרות (דלת, ארון)?',
-    a: 'בהחלט. אנו מבצעים גם עבודות מותאמות אישית בהיקף קטן – ארונות, דלתות, ספריות ורהיטים – בנוסף לפרויקטים מלאים.',
+    a: 'בהחלט. אנו מבצעים גם עבודות מותאמות אישית בהיקף קטן — ארונות, דלתות, ספריות ורהיטים — בנוסף לפרויקטים מלאים.',
   },
   {
     q: 'באילו חומרים אתם עובדים?',
@@ -30,85 +31,97 @@ const FAQ = [
 
 export default function Support() {
   return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: 860 }}>
-        <span className="badge badge-accent">שירות ותמיכה</span>
-        <h1 style={{ marginTop: '1rem' }}>שירות ותמיכה</h1>
-        <p className="text-muted" style={{ fontSize: '1.1rem' }}>
-          מענה לשאלות נפוצות ודרכי יצירת קשר עם {companyInfo.name}.
-        </p>
+    <>
+      <section className="wrap page-hero">
+        <div className="hero-eyebrow">
+          <span className="line" /><span>§ שירות ותמיכה · Support</span>
+        </div>
+        <h1 className="display">
+          שאלות נפוצות,<br /><em>תשובות ברורות.</em>
+        </h1>
+        <div className="page-lead">
+          <p>
+            כל מה שצריך לדעת לפני פנייה. אם השאלה שלכם לא מופיעה כאן —
+            מוזמנים לפנות אלינו ישירות ונחזור תוך יום עסקים.
+          </p>
+        </div>
+      </section>
 
-        <div className="grid grid-2" style={{ margin: '2rem 0' }}>
-          <div className="card">
-            <h3>צריכים עזרה דחופה?</h3>
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§01</span><span className="k">יצירת קשר מהיר</span></div>
+          <h2>שתי דרכים<br /><em>להתחיל.</em></h2>
+        </div>
+        <div className="sup-contact-grid">
+          <div className="sup-block">
+            <div className="mono">לקוחות קיימים</div>
+            <h3>תמיכה בטלפון</h3>
             <p>
-              לקוחות קיימים או פרויקטים בביצוע – ניתן ליצור עמנו קשר ישירות בטלפון
-              בשעות הפעילות:
+              לפרויקטים בביצוע או לקוחות קיימים — ניתן ליצור איתנו קשר ישיר בטלפון בשעות הפעילות.
             </p>
-            <p style={{ fontSize: '1.25rem', fontWeight: 600 }}>
-              📞 <a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a>
-            </p>
-            <p className="text-muted" style={{ fontSize: '0.9rem' }}>
-              {companyInfo.hours.weekdays}<br />
-              {companyInfo.hours.friday}
-            </p>
+            <a href={`tel:${companyInfo.phone}`} className="sup-phone ltr">{companyInfo.phoneDisplay}</a>
+            <div className="sup-hours">
+              <div>{companyInfo.hours.weekdays}</div>
+              <div>{companyInfo.hours.friday}</div>
+            </div>
           </div>
-          <div className="card">
-            <h3>לקוחות חדשים</h3>
+          <div className="sup-block sup-block-dark">
+            <div className="mono">לקוחות חדשים</div>
+            <h3>טופס פנייה</h3>
             <p>
-              להצעת מחיר או בירור ראשוני – השאירו פרטים בטופס ונחזור אליכם
-              תוך יום עסקים אחד.
+              להצעת מחיר, בירור ראשוני או פגישת היכרות — השאירו פרטים בטופס ונחזור אליכם תוך יום עסקים אחד.
             </p>
-            <Link to="/contact" className="btn btn-accent" style={{ marginTop: '0.5rem' }}>
-              למילוי טופס יצירת קשר
-            </Link>
+            <Link to="/contact" className="btn btn-inv">למילוי טופס ←</Link>
           </div>
         </div>
+      </section>
 
-        <h2>שאלות נפוצות</h2>
-        <div style={{ marginTop: '1rem' }}>
-          {FAQ.map((item) => (
-            <details
-              key={item.q}
-              className="card"
-              style={{ marginBottom: '0.75rem', padding: '1rem 1.2rem' }}
-            >
-              <summary style={{
-                fontWeight: 600, cursor: 'pointer', listStyle: 'none',
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-              }}>
-                <span>{item.q}</span>
-                <span aria-hidden="true" style={{ color: 'var(--color-accent)' }}>+</span>
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§02</span><span className="k">FAQ</span></div>
+          <h2>שאלות<br /><em>שכבר נשאלו.</em></h2>
+        </div>
+        <div className="faq-list">
+          {FAQ.map((item, i) => (
+            <details key={item.q} className="faq-item">
+              <summary>
+                <span className="faq-n">{String(i + 1).padStart(2, '0')}</span>
+                <span className="faq-q">{item.q}</span>
+                <span className="faq-icon" aria-hidden="true">+</span>
               </summary>
-              <p className="text-muted" style={{ marginTop: '0.8rem' }}>{item.a}</p>
+              <p className="faq-a">{item.a}</p>
             </details>
           ))}
         </div>
+      </section>
 
-        <h2 style={{ marginTop: '2.5rem' }}>דרכי תקשורת</h2>
-        <div className="grid grid-3">
-          <div className="card text-center">
-            <div style={{ fontSize: '2rem' }}>📞</div>
-            <h3>טלפון</h3>
-            <p><a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a></p>
-          </div>
-          <div className="card text-center">
-            <div style={{ fontSize: '2rem' }}>✉️</div>
-            <h3>דוא"ל</h3>
-            <p><a href={`mailto:${companyInfo.email}`}>{companyInfo.email}</a></p>
-          </div>
-          <div className="card text-center">
-            <div style={{ fontSize: '2rem' }}>📍</div>
-            <h3>המשרד / מפעל</h3>
-            <p>{companyInfo.address}</p>
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§03</span><span className="k">דרכי תקשורת</span></div>
+          <h2>
+            או פשוט —<br /><em>תתקשרו.</em>
+          </h2>
+        </div>
+        <div className="sup-ch-grid">
+          <a href={`tel:${companyInfo.phone}`} className="sup-ch">
+            <span className="mono">Phone</span>
+            <span className="sup-ch-v ltr">{companyInfo.phoneDisplay}</span>
+          </a>
+          <a href={`mailto:${companyInfo.email}`} className="sup-ch">
+            <span className="mono">Email</span>
+            <span className="sup-ch-v ltr">{companyInfo.email}</span>
+          </a>
+          <div className="sup-ch">
+            <span className="mono">Office</span>
+            <span className="sup-ch-v">{companyInfo.address}</span>
           </div>
         </div>
-
-        <p className="text-muted" style={{ marginTop: '2rem', fontSize: '0.9rem' }}>
-          השאלה שלכם לא מופיעה ברשימה? <Link to="/contact">פנו אלינו בטופס יצירת קשר</Link>
+        <p className="sup-closer">
+          השאלה שלכם לא מופיעה כאן?
+          {' '}<Link to="/contact">שלחו אלינו פנייה</Link>
           {' '}ונחזור אליכם בהקדם.
         </p>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

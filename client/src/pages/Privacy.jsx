@@ -2,13 +2,15 @@ import { companyInfo } from '../api.js';
 
 export default function Privacy() {
   return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: 860 }}>
-        <span className="badge">מדיניות פרטיות</span>
-        <h1 style={{ marginTop: '1rem' }}>מדיניות פרטיות</h1>
-        <p className="text-muted">
+    <section className="wrap">
+      <article className="prose">
+        <div className="prose-eyebrow">
+          <span className="line" /><span>§ חוקי · Privacy</span>
+        </div>
+        <h1>מדיניות <em>פרטיות.</em></h1>
+        <div className="prose-meta">
           עודכן לאחרונה: {new Date().toLocaleDateString('he-IL')}
-        </p>
+        </div>
 
         <p>
           <strong>{companyInfo.name}</strong> (להלן: "החברה") מכבדת את פרטיות
@@ -18,7 +20,7 @@ export default function Privacy() {
 
         <h2>1. מידע הנאסף באתר</h2>
         <p>החברה אוספת את סוגי המידע הבאים:</p>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li><strong>מידע שנמסר באופן יזום:</strong> בעת מילוי טופס יצירת קשר –
             שם מלא, מספר טלפון, כתובת דוא"ל (אופציונלי), נושא הפנייה ותוכן ההודעה.</li>
           <li><strong>מידע טכני:</strong> כתובת IP, סוג דפדפן, מערכת הפעלה
@@ -29,7 +31,7 @@ export default function Privacy() {
         </ul>
 
         <h2>2. מטרות השימוש במידע</h2>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li>מענה לפניות המתקבלות דרך האתר.</li>
           <li>מתן שירותים המוצעים באתר ושיפור חוויית המשתמש.</li>
           <li>שמירה על אבטחת המידע ומניעת שימוש לרעה.</li>
@@ -40,7 +42,7 @@ export default function Privacy() {
         <p>
           החברה לא תעביר לצד שלישי את פרטיך האישיים, למעט במקרים הבאים:
         </p>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li>ספקי תשתית שמפעילים עבור החברה את האתר ואת שירות הדוא"ל
             (מסדי נתונים, אחסון ענן ושליחת מיילים). ספקים אלה מחויבים
             לשמור על המידע בהתאם להוראות הדין.</li>
@@ -68,7 +70,7 @@ export default function Privacy() {
         <p>
           בהתאם לחוק הגנת הפרטיות, זכותך לבקש:
         </p>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li>לעיין במידע השמור עליך במאגר.</li>
           <li>לתקן מידע שאינו נכון, שלם, ברור או מעודכן.</li>
           <li>לבקש את מחיקת המידע ("זכות להישכח").</li>
@@ -97,12 +99,12 @@ export default function Privacy() {
         <p>
           לכל שאלה או בקשה בנושאי פרטיות, ניתן לפנות אלינו:
         </p>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li>דוא"ל: <a href={`mailto:${companyInfo.email}`}>{companyInfo.email}</a></li>
           <li>טלפון: <a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a></li>
           <li>כתובת: {companyInfo.address}</li>
         </ul>
-      </div>
+      </article>
     </section>
   );
 }

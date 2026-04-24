@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api.js';
+import './Projects.css';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -7,9 +9,17 @@ export default function Projects() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/projects')
-      .then((r) => setProjects(r.data))
-      .finally(() => setLoading(false));
+    let alive = true;
+    (async () => {
+      try {
+        const { data } = await api.get('/projects');
+        if (alive && Array.isArray(data)) {
+          setProjects([...data].sort((a, b) => (a.order || 0) - (b.order || 0)));
+        }
+      } catch (_e) { /* ignore */ }
+      finally { if (alive) setLoading(false); }
+    })();
+    return () => { alive = false; };
   }, []);
 
   const categories = useMemo(() => {
@@ -22,27 +32,43 @@ export default function Projects() {
     : projects.filter((p) => p.category === category);
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="section-head">
-          <span className="badge">תיק עבודות</span>
-          <h1 style={{ marginTop: '1rem' }}>הפרויקטים שלנו</h1>
-          <p className="text-muted">
-            מבחר מהפרויקטים שביצענו בשנים האחרונות.
+    <>
+      <section className="wrap page-hero">
+        <div className="hero-eyebrow">
+          <span className="line" /><span>§ תיק עבודות · Selected works</span>
+        </div>
+        <h1 className="display">
+          מה שעשינו<br /><em>בשנים האחרונות.</em>
+        </h1>
+        <div className="page-lead">
+          <p>
+            מבחר פרויקטים בתחומי הנגרות לבניין, חיפויי HPL וחיפוי לובאים — מפרויקטים פרטיים ועד לבנייני משרדים ומגורים.
+            כל פרויקט תוכנן, יוצר והותקן על ידי הצוות שלנו.
           </p>
+          <p>
+            הגלריה מתעדכנת באופן שוטף. לקוח שעבדנו איתו ולא מופיע כאן — כנראה בכוונה: חלק מהפרויקטים נשארים פרטיים לבקשת המזמין.
+          </p>
+        </div>
+      </section>
+
+      <section className="wrap sec">
+        <div className="sec-head">
+          <div className="idx"><span className="n">§01</span><span className="k">הפרויקטים</span></div>
+          <h2>
+            {filtered.length ? <>{String(filtered.length).padStart(2, '0')} עבודות<br /><em>נבחרות.</em></> : <>אין עדיין<br /><em>פרויקטים.</em></>}
+          </h2>
         </div>
 
         {!loading && categories.length > 2 && (
-          <div style={{
-            display: 'flex', flexWrap: 'wrap', gap: '0.5rem',
-            justifyContent: 'center', marginBottom: '2rem',
-          }}>
+          <div className="proj-filters" role="tablist" aria-label="סינון לפי קטגוריה">
             {categories.map((c) => (
               <button
                 key={c}
+                type="button"
+                role="tab"
+                aria-selected={c === category}
+                className={`proj-chip ${c === category ? 'active' : ''}`}
                 onClick={() => setCategory(c)}
-                className={c === category ? 'btn' : 'btn btn-outline'}
-                style={{ padding: '0.45rem 1rem', fontSize: '0.9rem' }}
               >
                 {c}
               </button>
@@ -51,43 +77,54 @@ export default function Projects() {
         )}
 
         {loading ? (
-          <p className="text-center text-muted">טוען…</p>
+          <p className="text-muted text-center">טוען…</p>
         ) : filtered.length === 0 ? (
-          <p className="text-center text-muted">אין פרויקטים להצגה.</p>
+          <p className="text-muted text-center">אין פרויקטים להצגה.</p>
         ) : (
-          <div className="grid grid-3">
-            {filtered.map((p) => (
-              <article key={p._id} className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                <div style={{
-                  height: 200,
-                  background: p.imageUrl
-                    ? `url(${p.imageUrl}) center/cover`
-                    : 'linear-gradient(135deg, #e4dcc6, #d8c9a3)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
+          <div className="proj-grid">
+            {filtered.map((p, i) => (
+              <article key={p._id} className="proj-card">
+                <div
+                  className="proj-media"
+                  style={p.imageUrl ? { backgroundImage: `url(${p.imageUrl})` } : undefined}
+                  aria-hidden={p.imageUrl ? 'true' : undefined}
+                >
                   {!p.imageUrl && (
-                    <span style={{
-                      color: 'var(--color-text)', fontWeight: 700,
-                      background: 'color-mix(in srgb, var(--color-surface) 80%, transparent)',
-                      padding: '0.3rem 0.9rem', borderRadius: 999,
-                    }}>{p.category}</span>
+                    <span className="proj-placeholder">
+                      {p.category || 'פרויקט'}
+                    </span>
                   )}
+                  <span className="proj-num">№ {String(i + 1).padStart(2, '0')}</span>
                 </div>
-                <div style={{ padding: '1.3rem' }}>
-                  <span className="badge badge-accent">{p.category}</span>
-                  <h3 style={{ marginTop: '0.6rem' }}>{p.title}</h3>
-                  <p className="text-muted">{p.summary}</p>
-                  {(p.location || p.year) && (
-                    <small className="text-muted">
-                      {[p.location, p.year].filter(Boolean).join(' · ')}
-                    </small>
-                  )}
+                <div className="proj-body">
+                  <div className="proj-mono">
+                    <span>{p.category || '—'}</span>
+                    <span>·</span>
+                    <span>{p.year || '—'}</span>
+                  </div>
+                  <h3>{p.title}</h3>
+                  {p.summary && <p className="proj-summary">{p.summary}</p>}
+                  <dl className="proj-dl">
+                    <dt>Location</dt><dd>{p.location || '—'}</dd>
+                    <dt>Category</dt><dd>{p.category || '—'}</dd>
+                    <dt>Year</dt><dd>{p.year || '—'}</dd>
+                  </dl>
                 </div>
               </article>
             ))}
           </div>
         )}
-      </div>
-    </section>
+      </section>
+
+      <section className="cta">
+        <div className="wrap cta-inner">
+          <h2>יש לכם פרויקט<br /><em>דומה בתכנון?</em></h2>
+          <div className="cta-side">
+            <p>שלחו לנו תכניות ראשוניות או תיאור של הכיוון — נחזור עם כיוון מחיר ראשוני.</p>
+            <Link to="/contact" className="btn btn-inv">התחלת שיחה ←</Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

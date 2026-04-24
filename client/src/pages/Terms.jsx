@@ -2,13 +2,15 @@ import { companyInfo } from '../api.js';
 
 export default function Terms() {
   return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: 860 }}>
-        <span className="badge">תנאי שימוש</span>
-        <h1 style={{ marginTop: '1rem' }}>תנאי שימוש</h1>
-        <p className="text-muted">
+    <section className="wrap">
+      <article className="prose">
+        <div className="prose-eyebrow">
+          <span className="line" /><span>§ חוקי · Terms</span>
+        </div>
+        <h1>תנאי <em>שימוש.</em></h1>
+        <div className="prose-meta">
           עודכן לאחרונה: {new Date().toLocaleDateString('he-IL')}
-        </p>
+        </div>
 
         <p>
           ברוכים הבאים לאתר של <strong>{companyInfo.name}</strong>
@@ -96,12 +98,12 @@ export default function Terms() {
         <p>
           לשאלות בנושא תנאי השימוש, ניתן לפנות אלינו:
         </p>
-        <ul style={{ lineHeight: 2 }}>
+        <ul>
           <li>דוא"ל: <a href={`mailto:${companyInfo.email}`}>{companyInfo.email}</a></li>
           <li>טלפון: <a href={`tel:${companyInfo.phone}`}>{companyInfo.phoneDisplay}</a></li>
           <li>כתובת: {companyInfo.address}</li>
         </ul>
-      </div>
+      </article>
     </section>
   );
 }
