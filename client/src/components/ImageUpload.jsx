@@ -52,25 +52,12 @@ export default function ImageUpload({ value, onChange, label = 'תמונה' }) {
     <div className="form-group">
       <label>{label}</label>
       {value ? (
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '1rem',
-          padding: '0.5rem', border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-sm)', background: 'var(--color-surface)',
-        }}>
-          <img
-            src={value} alt="preview"
-            style={{
-              width: 80, height: 80, objectFit: 'cover',
-              borderRadius: 'var(--radius-sm)', flexShrink: 0,
-            }}
-          />
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <small className="text-muted" style={{
-              display: 'block', direction: 'ltr', textAlign: 'left',
-              overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-            }}>{value}</small>
+        <div className="upload-preview">
+          <img src={value} alt="" />
+          <div className="upload-meta">
+            <small className="upload-url ltr">{value}</small>
           </div>
-          <button type="button" className="btn btn-danger" onClick={remove}>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={remove}>
             הסרה
           </button>
         </div>
@@ -82,17 +69,16 @@ export default function ImageUpload({ value, onChange, label = 'תמונה' }) {
             style={{ display: 'none' }}
           />
           <button
-            type="button" className="btn btn-outline"
+            type="button" className="upload-dropzone"
             onClick={() => inputRef.current?.click()} disabled={uploading}
           >
-            {uploading ? 'מעלה…' : '📷 העלאת תמונה'}
+            <span className="upload-ico" aria-hidden="true">↑</span>
+            <span className="upload-cta">{uploading ? 'מעלה…' : 'העלאת תמונה'}</span>
+            <span className="upload-help">JPEG / PNG / WebP · עד {MAX_MB}MB · יומר אוטומטית ל-WebP</span>
           </button>
-          <small className="text-muted" style={{ display: 'block', marginTop: '0.4rem' }}>
-            JPEG / PNG / WebP, עד {MAX_MB}MB. התמונה תומר ל-WebP ותוקטן אוטומטית.
-          </small>
         </>
       )}
-      {err && <div className="alert alert-error" style={{ marginTop: '0.5rem' }}>{err}</div>}
+      {err && <div className="alert alert-error" role="alert" style={{ marginTop: '8px' }}>{err}</div>}
     </div>
   );
 }

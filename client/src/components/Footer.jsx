@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { companyInfo } from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import './Footer.css';
 
 export default function Footer() {
+  const { info: companyInfo } = useCompanyInfo();
   const year = new Date().getFullYear();
   return (
     <footer className="ft">

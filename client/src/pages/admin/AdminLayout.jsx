@@ -2,6 +2,24 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext.jsx';
 import './admin.css';
 
+const NAV = [
+  { section: 'תוכן', items: [
+    { to: '/admin', end: true, label: 'לוח בקרה', ico: '◆' },
+    { to: '/admin/services', label: 'שירותים', ico: '◇' },
+    { to: '/admin/projects', label: 'פרויקטים', ico: '▣' },
+  ]},
+  { section: 'תקשורת', items: [
+    { to: '/admin/contacts', label: 'פניות', ico: '✉' },
+  ]},
+  { section: 'אתר', items: [
+    { to: '/admin/company', label: 'פרטי חברה', ico: '☎' },
+  ]},
+  { section: 'ניהול', items: [
+    { to: '/admin/users', label: 'משתמשי אדמין', ico: '◉' },
+    { to: '/admin/account', label: 'החשבון שלי', ico: '✱' },
+  ]},
+];
+
 export default function AdminLayout() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -13,21 +31,32 @@ export default function AdminLayout() {
 
   return (
     <div className="admin-shell">
-      <aside className="admin-side">
+      <aside className="admin-side" aria-label="ניווט פאנל ניהול">
         <div className="admin-brand">
           <strong>י.ש. מהנדסים</strong>
           <small>פאנל ניהול</small>
         </div>
-        <nav className="admin-nav">
-          <NavLink to="/admin" end>לוח בקרה</NavLink>
-          <NavLink to="/admin/services">שירותים</NavLink>
-          <NavLink to="/admin/projects">פרויקטים</NavLink>
-          <NavLink to="/admin/contacts">פניות</NavLink>
-          <NavLink to="/admin/account">חשבון / סיסמה</NavLink>
+        <nav className="admin-nav" aria-label="ניווט ראשי">
+          {NAV.map((group) => (
+            <div key={group.section}>
+              <div className="admin-nav-section">{group.section}</div>
+              {group.items.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                >
+                  <span className="nav-ico" aria-hidden="true">{item.ico}</span>
+                  <span>{item.label}</span>
+                </NavLink>
+              ))}
+            </div>
+          ))}
         </nav>
         <div className="admin-user">
-          <small className="text-muted">{user?.email}</small>
-          <button className="btn btn-outline" onClick={onLogout} style={{ width: '100%', marginTop: '0.5rem' }}>
+          <div className="user-meta">{user?.email}</div>
+          <button className="btn btn-ghost" onClick={onLogout}>
             התנתקות
           </button>
         </div>

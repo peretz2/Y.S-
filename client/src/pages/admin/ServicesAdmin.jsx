@@ -112,21 +112,22 @@ export default function ServicesAdmin() {
       </div>
 
       {editing && (
-        <div className="admin-modal-backdrop" onClick={close}>
+        <div className="admin-modal-backdrop" onClick={close} role="dialog" aria-modal="true">
           <form className="admin-modal" onClick={(e) => e.stopPropagation()} onSubmit={save}>
             <h2>{editing === 'new' ? 'שירות חדש' : 'עריכת שירות'}</h2>
-            {err && <div className="alert alert-error">{err}</div>}
-            <div className="grid grid-2" style={{ gap: '1rem' }}>
+            {err && <div className="alert alert-error" role="alert">{err}</div>}
+            <div className="grid grid-2">
               <div className="form-group">
-                <label>שם *</label>
+                <label>שם <span className="req">*</span></label>
                 <input required value={form.title} onChange={update('title')} />
               </div>
               <div className="form-group">
-                <label>Slug *</label>
-                <input required value={form.slug} onChange={update('slug')} />
+                <label>מזהה (slug) <span className="req">*</span></label>
+                <input required value={form.slug} onChange={update('slug')} dir="ltr"
+                       placeholder="hpl-cladding" />
               </div>
             </div>
-            <div className="grid grid-2" style={{ gap: '1rem' }}>
+            <div className="grid grid-2">
               <div className="form-group">
                 <label>אייקון (אמוג׳י)</label>
                 <input value={form.icon} onChange={update('icon')} placeholder="🪚" />
@@ -137,22 +138,24 @@ export default function ServicesAdmin() {
               </div>
             </div>
             <div className="form-group">
-              <label>תיאור קצר *</label>
-              <input required value={form.shortDescription} onChange={update('shortDescription')} />
+              <label>תיאור קצר <span className="req">*</span></label>
+              <input required value={form.shortDescription} onChange={update('shortDescription')}
+                     placeholder="משפט אחד שמסכם מה השירות נותן" />
             </div>
             <div className="form-group">
-              <label>תיאור מלא *</label>
-              <textarea required value={form.description} onChange={update('description')} />
+              <label>תיאור מלא <span className="req">*</span></label>
+              <textarea required value={form.description} onChange={update('description')}
+                        placeholder="תיאור מורחב — חומרים, יישומים, יתרונות…" />
             </div>
             <div className="form-group">
-              <label>
+              <label className="inline">
                 <input type="checkbox" checked={form.isActive} onChange={update('isActive')} />
-                {' '}מוצג באתר
+                <span>מוצג באתר</span>
               </label>
             </div>
-            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-start' }}>
+            <div className="admin-modal-actions">
               <button type="submit" className="btn">שמירה</button>
-              <button type="button" className="btn btn-outline" onClick={close}>ביטול</button>
+              <button type="button" className="btn btn-ghost" onClick={close}>ביטול</button>
             </div>
           </form>
         </div>

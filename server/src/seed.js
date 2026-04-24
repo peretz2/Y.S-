@@ -5,6 +5,8 @@ const { connectDB } = require('./db');
 const User = require('./models/User');
 const Service = require('./models/Service');
 const Project = require('./models/Project');
+const CompanyInfo = require('./models/CompanyInfo');
+const { DEFAULTS: COMPANY_DEFAULTS } = require('./routes/companyInfo');
 
 const services = [
   {
@@ -152,6 +154,13 @@ async function seed() {
   await Project.deleteMany({});
   await Project.insertMany(projects);
   console.log(`[seed] inserted ${projects.length} projects`);
+
+  await CompanyInfo.updateOne(
+    { key: 'default' },
+    { $set: { key: 'default' }, $setOnInsert: COMPANY_DEFAULTS },
+    { upsert: true }
+  );
+  console.log('[seed] company info ready');
 
   await mongoose.disconnect();
   console.log('[seed] done');

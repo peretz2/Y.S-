@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const rateLimit = require('express-rate-limit');
 const User = require('../models/User');
 const { requireAuth, setAuthCookie, clearAuthCookie } = require('../middleware/auth');
@@ -89,7 +89,7 @@ router.post(
 
       const token = signToken(user);
       setAuthCookie(res, token);
-      res.json({ user: { email: user.email, role: user.role } });
+      res.json({ user: { _id: user._id, email: user.email, role: user.role } });
     } catch (err) {
       next(err);
     }
@@ -108,7 +108,7 @@ router.get('/me', requireAuth, async (req, res, next) => {
       clearAuthCookie(res);
       return res.status(401).json({ error: 'לא מורשה' });
     }
-    res.json({ user: { email: user.email, role: user.role } });
+    res.json({ user: { _id: user._id, email: user.email, role: user.role } });
   } catch (err) {
     next(err);
   }
@@ -193,6 +193,92 @@ router.post(
       }
       user.passwordHash = await bcrypt.hash(newPassword, 12);
       user.passwordChangedAt = new Date();
+      await user.save();
+      res.json({ ok: true });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// ─────────── admin user management ───────────
+
+router.get('/users', requireAuth, async (_req, res, next) => {
+  try {
+    const users = await User.find({})
+      .sort({ createdAt: 1 })
+      .select('email role createdAt passwordChangedAt');
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post(
+  '/users',
+  requireAuth,
+  runValidators([
+    body('email').isEmail().withMessage('אימייל לא תקין').normalizeEmail(),
+    passwordValidator('password'),
+  ]),
+  async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const existing = await User.findOne({ email });
+      if (existing) {
+        return res.status(409).json({ error: 'משתמש עם אימייל זה כבר קיים' });
+      }
+      const passwordHash = await bcrypt.hash(password, 12);
+      const user = await User.create({ email, passwordHash, role: 'admin' });
+      res.status(201).json({
+        _id: user._id,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.delete(
+  '/users/:id',
+  requireAuth,
+  runValidators([param('id').isMongoId().withMessage('מזהה לא תקין')]),
+  async (req, res, next) => {
+    try {
+      if (req.params.id === req.user.sub) {
+        return res.status(400).json({ error: 'אי אפשר למחוק את עצמך' });
+      }
+      const total = await User.countDocuments();
+      if (total <= 1) {
+        return res.status(400).json({ error: 'חייב להישאר לפחות מנהל אחד' });
+      }
+      const deleted = await User.findByIdAndDelete(req.params.id);
+      if (!deleted) return res.status(404).json({ error: 'משתמש לא נמצא' });
+      res.json({ ok: true });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.post(
+  '/users/:id/reset-password',
+  requireAuth,
+  runValidators([
+    param('id').isMongoId().withMessage('מזהה לא תקין'),
+    passwordValidator('password'),
+  ]),
+  async (req, res, next) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) return res.status(404).json({ error: 'משתמש לא נמצא' });
+      user.passwordHash = await bcrypt.hash(req.body.password, 12);
+      user.passwordChangedAt = new Date();
+      user.failedLoginCount = 0;
+      user.lockUntil = null;
       await user.save();
       res.json({ ok: true });
     } catch (err) {

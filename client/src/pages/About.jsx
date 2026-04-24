@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { companyInfo } from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import './About.css';
 
 const EXPERTISE = [
@@ -17,6 +17,7 @@ const VALUES = [
 ];
 
 export default function About() {
+  const { info: companyInfo } = useCompanyInfo();
   return (
     <>
       <section className="wrap page-hero">

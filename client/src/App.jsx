@@ -17,6 +17,8 @@ import Dashboard from './pages/admin/Dashboard.jsx';
 import ServicesAdmin from './pages/admin/ServicesAdmin.jsx';
 import ProjectsAdmin from './pages/admin/ProjectsAdmin.jsx';
 import ContactsAdmin from './pages/admin/ContactsAdmin.jsx';
+import UsersAdmin from './pages/admin/UsersAdmin.jsx';
+import CompanyInfoAdmin from './pages/admin/CompanyInfoAdmin.jsx';
 import ForgotPassword from './pages/admin/ForgotPassword.jsx';
 import ResetPassword from './pages/admin/ResetPassword.jsx';
 import ChangePassword from './pages/admin/ChangePassword.jsx';
@@ -55,6 +57,8 @@ export default function App() {
           <Route path="services" element={<ServicesAdmin />} />
           <Route path="projects" element={<ProjectsAdmin />} />
           <Route path="contacts" element={<ContactsAdmin />} />
+          <Route path="users" element={<UsersAdmin />} />
+          <Route path="company" element={<CompanyInfoAdmin />} />
           <Route path="account" element={<ChangePassword />} />
         </Route>
       </Routes>

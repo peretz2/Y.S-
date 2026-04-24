@@ -111,28 +111,29 @@ export default function ProjectsAdmin() {
       </div>
 
       {editing && (
-        <div className="admin-modal-backdrop" onClick={close}>
+        <div className="admin-modal-backdrop" onClick={close} role="dialog" aria-modal="true">
           <form className="admin-modal" onClick={(e) => e.stopPropagation()} onSubmit={save}>
             <h2>{editing === 'new' ? 'פרויקט חדש' : 'עריכת פרויקט'}</h2>
-            {err && <div className="alert alert-error">{err}</div>}
-            <div className="grid grid-2" style={{ gap: '1rem' }}>
+            {err && <div className="alert alert-error" role="alert">{err}</div>}
+            <div className="grid grid-2">
               <div className="form-group">
-                <label>שם *</label>
+                <label>שם <span className="req">*</span></label>
                 <input required value={form.title} onChange={update('title')} />
               </div>
               <div className="form-group">
-                <label>Slug *</label>
-                <input required value={form.slug} onChange={update('slug')} />
+                <label>מזהה (slug) <span className="req">*</span></label>
+                <input required value={form.slug} onChange={update('slug')} dir="ltr"
+                       placeholder="lobby-haifa-tower" />
               </div>
             </div>
-            <div className="grid grid-3" style={{ gap: '1rem' }}>
+            <div className="grid grid-3">
               <div className="form-group">
                 <label>קטגוריה</label>
-                <input value={form.category} onChange={update('category')} />
+                <input value={form.category} onChange={update('category')} placeholder="חיפוי לובי" />
               </div>
               <div className="form-group">
                 <label>מיקום</label>
-                <input value={form.location} onChange={update('location')} />
+                <input value={form.location} onChange={update('location')} placeholder="חיפה" />
               </div>
               <div className="form-group">
                 <label>שנה</label>
@@ -141,11 +142,13 @@ export default function ProjectsAdmin() {
             </div>
             <div className="form-group">
               <label>תיאור קצר</label>
-              <input value={form.summary} onChange={update('summary')} />
+              <input value={form.summary} onChange={update('summary')}
+                     placeholder="משפט אחד שמסכם את הפרויקט" />
             </div>
             <div className="form-group">
               <label>תיאור מלא</label>
-              <textarea value={form.description} onChange={update('description')} />
+              <textarea value={form.description} onChange={update('description')}
+                        placeholder="תיאור מורחב — חומרים, היקף, אתגרים…" />
             </div>
             <ImageUpload
               value={form.imageUrl}
@@ -155,16 +158,17 @@ export default function ProjectsAdmin() {
             <div className="form-group">
               <label>סדר תצוגה</label>
               <input type="number" value={form.order} onChange={update('order')} />
+              <div className="help">מספר נמוך = מוצג קודם.</div>
             </div>
             <div className="form-group">
-              <label>
+              <label className="inline">
                 <input type="checkbox" checked={form.isFeatured} onChange={update('isFeatured')} />
-                {' '}מומלץ (מוצג בדף הבית)
+                <span>מומלץ — מוצג בדף הבית</span>
               </label>
             </div>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div className="admin-modal-actions">
               <button type="submit" className="btn">שמירה</button>
-              <button type="button" className="btn btn-outline" onClick={close}>ביטול</button>
+              <button type="button" className="btn btn-ghost" onClick={close}>ביטול</button>
             </div>
           </form>
         </div>

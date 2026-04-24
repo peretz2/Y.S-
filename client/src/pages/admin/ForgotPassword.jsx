@@ -23,45 +23,50 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center',
-      justifyContent: 'center', background: 'var(--color-bg)', padding: '1rem',
-    }}>
-      <div className="card" style={{ width: '100%', maxWidth: 460, padding: '2rem' }}>
-        <h1 style={{ marginBottom: '0.3rem' }}>שכחתי סיסמה</h1>
-        <p className="text-muted" style={{ marginBottom: '1.5rem' }}>
-          הזינו את כתובת המייל ונשלח אליכם קישור לאיפוס סיסמה.
-        </p>
+    <main className="auth-page">
+      <div className="auth-card">
+        <div className="auth-eyebrow">
+          <span className="line" /><span>§ איפוס סיסמה</span>
+        </div>
+        <h1>שכחתי <em>סיסמה.</em></h1>
+        <p className="auth-sub">הזן את כתובת המייל ונשלח אליך קישור לאיפוס.</p>
+
         {submitted ? (
           <>
-            <div className="alert alert-success">
-              אם הכתובת קיימת במערכת, נשלח אליה מייל עם הוראות לאיפוס הסיסמה.
-              הקישור תקף למשך שעה אחת.
+            <div className="alert alert-success" role="status">
+              אם הכתובת קיימת במערכת, נשלח אליה מייל עם הוראות לאיפוס הסיסמה. הקישור תקף לשעה.
             </div>
-            <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <div className="auth-foot">
               <Link to="/admin/login">חזרה לכניסה</Link>
-            </p>
+            </div>
           </>
         ) : (
-          <form onSubmit={onSubmit}>
-            {err && <div className="alert alert-error">{err}</div>}
-            <div className="form-group">
-              <label>אימייל</label>
-              <input
-                type="email" value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required autoFocus autoComplete="username"
-              />
-            </div>
-            <button type="submit" className="btn" style={{ width: '100%' }} disabled={loading}>
-              {loading ? 'שולח…' : 'שליחת קישור לאיפוס'}
-            </button>
-            <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+          <>
+            <form onSubmit={onSubmit} noValidate>
+              {err && <div className="alert alert-error" role="alert">{err}</div>}
+              <div className="form-group">
+                <label htmlFor="email">אימייל</label>
+                <input
+                  id="email"
+                  type="email" value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required autoFocus autoComplete="username"
+                  placeholder="name@example.com"
+                  dir="ltr"
+                />
+              </div>
+              <div className="auth-actions">
+                <button type="submit" className="btn" disabled={loading}>
+                  {loading ? 'שולח…' : 'שליחת קישור ←'}
+                </button>
+              </div>
+            </form>
+            <div className="auth-foot">
               <Link to="/admin/login">חזרה לכניסה</Link>
-            </p>
-          </form>
+            </div>
+          </>
         )}
       </div>
-    </div>
+    </main>
   );
 }

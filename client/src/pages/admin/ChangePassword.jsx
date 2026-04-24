@@ -35,47 +35,62 @@ export default function ChangePassword() {
         <h1>חשבון ואבטחה</h1>
       </div>
 
-      <div style={{ maxWidth: 560 }}>
-        <div className="card" style={{ marginBottom: '1.5rem' }}>
-          <h3>פרטי חשבון</h3>
-          <p><strong>אימייל:</strong> {user?.email}</p>
-          <p><strong>תפקיד:</strong> {user?.role}</p>
-        </div>
+      <div className="admin-grid-2">
+        <section className="admin-section">
+          <header className="admin-section-head">
+            <span className="mono">פרטי חשבון</span>
+            <h2>הפרטים שלך</h2>
+          </header>
+          <dl className="admin-dl">
+            <dt>אימייל</dt>
+            <dd className="ltr">{user?.email}</dd>
+            <dt>תפקיד</dt>
+            <dd>{user?.role === 'admin' ? 'מנהל מערכת' : user?.role}</dd>
+          </dl>
+        </section>
 
-        <form onSubmit={onSubmit} className="card">
-          <h3>שינוי סיסמה</h3>
-          <p className="text-muted" style={{ marginBottom: '1rem' }}>
-            הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה וספרה.
-          </p>
-          {msg.type && <div className={`alert alert-${msg.type}`}>{msg.text}</div>}
-          <div className="form-group">
-            <label>סיסמה נוכחית</label>
-            <input
-              type="password" value={currentPassword}
-              onChange={(e) => setCurrent(e.target.value)}
-              required autoComplete="current-password"
-            />
-          </div>
-          <div className="form-group">
-            <label>סיסמה חדשה</label>
-            <input
-              type="password" value={newPassword}
-              onChange={(e) => setNew(e.target.value)}
-              required minLength={8} autoComplete="new-password"
-            />
-          </div>
-          <div className="form-group">
-            <label>אישור סיסמה חדשה</label>
-            <input
-              type="password" value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-              required minLength={8} autoComplete="new-password"
-            />
-          </div>
-          <button type="submit" className="btn" disabled={loading}>
-            {loading ? 'מעדכן…' : 'עדכון סיסמה'}
-          </button>
-        </form>
+        <section className="admin-section">
+          <header className="admin-section-head">
+            <span className="mono">אבטחה</span>
+            <h2>שינוי סיסמה</h2>
+          </header>
+          <form onSubmit={onSubmit} noValidate>
+            <p className="help" style={{ marginBottom: '1rem' }}>
+              הסיסמה חייבת להכיל לפחות 8 תווים, אות גדולה, אות קטנה וספרה.
+            </p>
+            {msg.type && <div className={`alert alert-${msg.type}`}>{msg.text}</div>}
+            <div className="form-group">
+              <label htmlFor="cur">סיסמה נוכחית</label>
+              <input
+                id="cur"
+                type="password" value={currentPassword}
+                onChange={(e) => setCurrent(e.target.value)}
+                required autoComplete="current-password"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="new">סיסמה חדשה</label>
+              <input
+                id="new"
+                type="password" value={newPassword}
+                onChange={(e) => setNew(e.target.value)}
+                required minLength={8} autoComplete="new-password"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="new2">אישור סיסמה חדשה</label>
+              <input
+                id="new2"
+                type="password" value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                required minLength={8} autoComplete="new-password"
+              />
+            </div>
+            <button type="submit" className="btn" disabled={loading}>
+              {loading ? 'מעדכן…' : 'עדכון סיסמה'}
+            </button>
+          </form>
+        </section>
       </div>
     </>
   );

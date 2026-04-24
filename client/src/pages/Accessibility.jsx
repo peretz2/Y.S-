@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { companyInfo } from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 
 export default function Accessibility() {
+  const { info: companyInfo } = useCompanyInfo();
   return (
     <section className="wrap">
       <article className="prose">

@@ -1,6 +1,7 @@
-import { companyInfo } from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 
 export default function Privacy() {
+  const { info: companyInfo } = useCompanyInfo();
   return (
     <section className="wrap">
       <article className="prose">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api, { companyInfo } from '../api.js';
+import api from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import './Home.css';
 
 const FALLBACK_SERVICES = [
@@ -26,6 +27,7 @@ const PROCESS = [
 ];
 
 export default function Home() {
+  const { info: companyInfo } = useCompanyInfo();
   const [services, setServices] = useState(FALLBACK_SERVICES);
   const [projects, setProjects] = useState([]);
 

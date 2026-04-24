@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import api, { companyInfo } from '../api.js';
+import api from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import './Contact.css';
 
 export default function Contact() {
+  const { info: companyInfo } = useCompanyInfo();
   const [form, setForm] = useState({ name: '', phone: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState({ type: null, text: '' });
   const [submitting, setSubmitting] = useState(false);

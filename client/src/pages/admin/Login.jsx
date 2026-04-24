@@ -27,39 +27,50 @@ export default function Login() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center',
-      justifyContent: 'center', background: 'var(--color-bg)', padding: '1rem',
-    }}>
-      <form onSubmit={onSubmit} className="card" style={{ width: '100%', maxWidth: 420, padding: '2rem' }}>
-        <h1 style={{ marginBottom: '0.3rem' }}>כניסת מנהל</h1>
-        <p className="text-muted" style={{ marginBottom: '1.5rem' }}>
-          פאנל ניהול – י.ש. מהנדסים
-        </p>
-        {err && <div className="alert alert-error">{err}</div>}
-        <div className="form-group">
-          <label>אימייל</label>
-          <input
-            type="email" value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required autoFocus autoComplete="username"
-          />
+    <main className="auth-page">
+      <div className="auth-card">
+        <div className="auth-eyebrow">
+          <span className="line" /><span>§ פאנל ניהול</span>
         </div>
-        <div className="form-group">
-          <label>סיסמה</label>
-          <input
-            type="password" value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required autoComplete="current-password"
-          />
-        </div>
-        <button type="submit" className="btn" style={{ width: '100%' }} disabled={loading}>
-          {loading ? 'מתחבר…' : 'כניסה'}
-        </button>
-        <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+        <h1>כניסת <em>מנהל.</em></h1>
+        <p className="auth-sub">י.ש. מהנדסים — גישה לעריכת תוכן האתר.</p>
+
+        <form onSubmit={onSubmit} noValidate>
+          {err && <div className="alert alert-error" role="alert">{err}</div>}
+
+          <div className="form-group">
+            <label htmlFor="email">אימייל</label>
+            <input
+              id="email"
+              type="email" value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required autoFocus autoComplete="username"
+              placeholder="name@example.com"
+              dir="ltr"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">סיסמה</label>
+            <input
+              id="password"
+              type="password" value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required autoComplete="current-password"
+            />
+          </div>
+
+          <div className="auth-actions">
+            <button type="submit" className="btn" disabled={loading}>
+              {loading ? 'מתחבר…' : 'כניסה ←'}
+            </button>
+          </div>
+        </form>
+
+        <div className="auth-foot">
           <Link to="/admin/forgot-password">שכחתי סיסמה</Link>
-        </p>
-      </form>
-    </div>
+        </div>
+      </div>
+    </main>
   );
 }

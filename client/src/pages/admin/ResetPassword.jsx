@@ -32,50 +32,61 @@ export default function ResetPassword() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center',
-      justifyContent: 'center', background: 'var(--color-bg)', padding: '1rem',
-    }}>
-      <div className="card" style={{ width: '100%', maxWidth: 460, padding: '2rem' }}>
-        <h1 style={{ marginBottom: '0.3rem' }}>איפוס סיסמה</h1>
-        <p className="text-muted" style={{ marginBottom: '1.5rem' }}>
-          בחרו סיסמה חדשה (לפחות 8 תווים, אות גדולה, אות קטנה וספרה).
-        </p>
+    <main className="auth-page">
+      <div className="auth-card">
+        <div className="auth-eyebrow">
+          <span className="line" /><span>§ איפוס סיסמה</span>
+        </div>
+        <h1>סיסמה <em>חדשה.</em></h1>
+        <p className="auth-sub">לפחות 8 תווים, אות גדולה, אות קטנה וספרה.</p>
+
         {!token && (
-          <div className="alert alert-error">חסר טוקן – השתמשו בקישור שנשלח אליכם במייל.</div>
-        )}
-        {done ? (
-          <div className="alert alert-success">
-            הסיסמה עודכנה. מעבירים אתכם למסך הכניסה…
+          <div className="alert alert-error" role="alert">
+            חסר טוקן — השתמשו בקישור שנשלח אליכם במייל.
           </div>
-        ) : (
-          <form onSubmit={onSubmit}>
-            {err && <div className="alert alert-error">{err}</div>}
-            <div className="form-group">
-              <label>סיסמה חדשה</label>
-              <input
-                type="password" value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required minLength={8} autoFocus autoComplete="new-password"
-              />
-            </div>
-            <div className="form-group">
-              <label>אישור סיסמה</label>
-              <input
-                type="password" value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
-                required minLength={8} autoComplete="new-password"
-              />
-            </div>
-            <button type="submit" className="btn" style={{ width: '100%' }} disabled={loading || !token}>
-              {loading ? 'מעדכן…' : 'עדכון סיסמה'}
-            </button>
-            <p style={{ marginTop: '1rem', textAlign: 'center' }}>
-              <Link to="/admin/login">חזרה לכניסה</Link>
-            </p>
-          </form>
         )}
+
+        {done ? (
+          <>
+            <div className="alert alert-success" role="status">
+              הסיסמה עודכנה. מעבירים אתכם למסך הכניסה…
+            </div>
+          </>
+        ) : (
+          <>
+            <form onSubmit={onSubmit} noValidate>
+              {err && <div className="alert alert-error" role="alert">{err}</div>}
+              <div className="form-group">
+                <label htmlFor="pw">סיסמה חדשה</label>
+                <input
+                  id="pw"
+                  type="password" value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required minLength={8} autoFocus autoComplete="new-password"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="pw2">אישור סיסמה</label>
+                <input
+                  id="pw2"
+                  type="password" value={confirm}
+                  onChange={(e) => setConfirm(e.target.value)}
+                  required minLength={8} autoComplete="new-password"
+                />
+              </div>
+              <div className="auth-actions">
+                <button type="submit" className="btn" disabled={loading || !token}>
+                  {loading ? 'מעדכן…' : 'עדכון סיסמה ←'}
+                </button>
+              </div>
+            </form>
+          </>
+        )}
+
+        <div className="auth-foot">
+          <Link to="/admin/login">חזרה לכניסה</Link>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

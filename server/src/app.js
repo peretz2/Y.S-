@@ -11,6 +11,7 @@ const servicesRoutes = require('./routes/services');
 const projectsRoutes = require('./routes/projects');
 const contactsRoutes = require('./routes/contacts');
 const uploadsRoutes = require('./routes/uploads');
+const companyInfoRoutes = require('./routes/companyInfo');
 
 const UPLOAD_DIR = path.resolve(__dirname, '..', process.env.UPLOAD_DIR || 'uploads');
 
@@ -70,6 +71,7 @@ app.use('/api/services', servicesRoutes);
 app.use('/api/projects', projectsRoutes);
 app.use('/api/contacts', contactLimiter, contactsRoutes);
 app.use('/api/uploads', uploadsRoutes);
+app.use('/api/company-info', companyInfoRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error('[error]', err.message);

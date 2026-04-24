@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { companyInfo } from '../api.js';
+import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
 import './Navbar.css';
 
@@ -13,6 +13,7 @@ const LINKS = [
 ];
 
 export default function Navbar() {
+  const { info: companyInfo } = useCompanyInfo();
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
