@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
 import './Navbar.css';
 
@@ -10,11 +11,11 @@ export default function Navbar() {
   const { t } = useContent();
 
   const LINKS = [
-    { to: '/', label: t('nav.home', 'דף הבית'), end: true },
-    { to: '/about', label: t('nav.about', 'אודות') },
-    { to: '/services', label: t('nav.services', 'שירותים') },
-    { to: '/projects', label: t('nav.projects', 'פרויקטים') },
-    { to: '/contact', label: t('nav.contact', 'צור קשר') },
+    { to: '/',         label: t('nav.home',     'דף הבית'),  contentKey: 'nav.home',     end: true },
+    { to: '/about',    label: t('nav.about',    'אודות'),    contentKey: 'nav.about' },
+    { to: '/services', label: t('nav.services', 'שירותים'),  contentKey: 'nav.services' },
+    { to: '/projects', label: t('nav.projects', 'פרויקטים'), contentKey: 'nav.projects' },
+    { to: '/contact',  label: t('nav.contact',  'צור קשר'),  contentKey: 'nav.contact' },
   ];
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -43,7 +44,7 @@ export default function Navbar() {
         <nav className={`primary ${open ? 'open' : ''}`} aria-label="ניווט ראשי">
           {LINKS.map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} className={({ isActive }) => (isActive ? 'active' : '')}>
-              {l.label}
+              <Editable contentKey={l.contentKey} as="span">{l.label}</Editable>
             </NavLink>
           ))}
         </nav>
