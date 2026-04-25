@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useContent();
   const year = new Date().getFullYear();
   return (
-    <footer className="ft">
+    <footer id="footer" className="ft">
       <div className="wrap ft-top">
         <div>
           <h3>{companyInfo.name}</h3>

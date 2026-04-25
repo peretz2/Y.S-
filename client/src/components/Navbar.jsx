@@ -33,7 +33,7 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header className="hdr">
+    <header id="navbar" className="hdr">
       <div className="hdr-inner wrap">
         <Link to="/" className="brand" aria-label={companyInfo.name}>
           <span className="brand-mark">י.ש. מהנדסים</span>

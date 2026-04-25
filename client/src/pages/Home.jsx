@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="wrap hero">
+      <section id="hero" className="wrap hero">
         <div className="hero-eyebrow">
           <span className="line" /><span>{t('home.hero.eyebrow', 'Y.SCH. Engineers · גבעת אלה')} · Est. {companyInfo.founded}</span>
         </div>
@@ -83,7 +83,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="wrap">
+      <section id="featured" className="wrap">
         <div className="hero-slab">
           <span className="tag">Featured · {new Date().getFullYear()}</span>
           <div className="caption">
@@ -96,7 +96,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="strip">
+      <div id="strip" className="strip">
         <div className="strip-inner">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="strip-group">
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="wrap sec">
+      <section id="services-section" className="wrap sec">
         <div className="sec-head">
           <div className="idx"><span className="n">§01</span><span className="k">השירותים</span></div>
           <h2>חמישה תחומים.<br /><em>מפעל אחד.</em> צוות אחד.</h2>
@@ -124,7 +124,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="wrap">
+      <section id="stats" className="wrap">
         <div className="stats">
           {STATS.map((s) => (
             <div key={s.k} className="stat">
@@ -137,7 +137,7 @@ export default function Home() {
       </section>
 
       {projects.length > 0 && (
-        <section className="wrap sec">
+        <section id="projects-section" className="wrap sec">
           <div className="sec-head">
             <div className="idx"><span className="n">§02</span><span className="k">פרויקטים נבחרים</span></div>
             <h2>עבודות שנעשו<br />בשלוש השנים <em>האחרונות.</em></h2>
@@ -167,7 +167,7 @@ export default function Home() {
         </section>
       )}
 
-      <section className="wrap sec">
+      <section id="process" className="wrap sec">
         <div className="sec-head">
           <div className="idx"><span className="n">§03</span><span className="k">התהליך</span></div>
           <h2>ארבעה שלבים.<br />מפגישה ראשונה <em>עד מסירה.</em></h2>
@@ -183,7 +183,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="cta">
+      <section id="cta" className="cta">
         <div className="wrap cta-inner">
           <h2>פרויקט חדש באופק?<br /><em>נשמח לשמוע.</em></h2>
           <div className="cta-side">
