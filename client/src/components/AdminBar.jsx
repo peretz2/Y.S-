@@ -24,6 +24,8 @@ const btnStyle = {
   borderRadius: 'var(--border-radius-pill)',
   cursor: 'pointer',
   fontSize: '0.8rem',
+  textDecoration: 'none',
+  display: 'inline-block',
 };
 
 export default function AdminBar() {
@@ -39,13 +41,12 @@ export default function AdminBar() {
 
   return (
     <div style={barStyle}>
-      <span>✏️ מצב עריכה</span>
+      <span>👤 מחובר כאדמין</span>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <span style={{ opacity: 0.7 }}>{user.email}</span>
-        <Link to="/admin" style={{ ...btnStyle, textDecoration: 'none', display: 'inline-block' }}>
-          פאנל ניהול
-        </Link>
-        <button style={btnStyle} onClick={handleLogout}>
+        <Link to="/" style={btnStyle}>🌐 צפה באתר</Link>
+        <Link to="/admin" style={btnStyle}>פאנל ניהול</Link>
+        <button style={{ ...btnStyle, border: '1px solid currentColor' }} onClick={handleLogout}>
           התנתק
         </button>
       </div>

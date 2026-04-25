@@ -38,6 +38,28 @@ export default function AdminLayout() {
           <small>פאנל ניהול</small>
         </div>
         <nav className="admin-nav" aria-label="ניווט ראשי">
+          <div style={{ padding: '0 1rem 1rem', borderBottom: '1px solid var(--color-border-secondary)', marginBottom: '1rem' }}>
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 0.75rem',
+                color: 'var(--color-text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.9rem',
+                borderRadius: 'var(--border-radius-md)',
+                transition: 'background 0.15s',
+              }}
+            >
+              <span aria-hidden="true">🌐</span>
+              <span>צפה באתר</span>
+              <span style={{ marginInlineStart: 'auto', opacity: 0.5 }}>↗</span>
+            </a>
+          </div>
           {NAV.map((group) => (
             <div key={group.section}>
               <div className="admin-nav-section">{group.section}</div>

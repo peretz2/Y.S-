@@ -33,18 +33,19 @@ export default function Dashboard() {
     })();
   }, []);
 
-  const greeting = (() => {
-    const h = new Date().getHours();
-    if (h < 12) return 'בוקר טוב';
-    if (h < 18) return 'צהריים טובים';
-    return 'ערב טוב';
-  })();
+  function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return 'בוקר טוב';
+    if (hour >= 12 && hour < 18) return 'צהריים טובים';
+    if (hour >= 18 && hour < 22) return 'ערב טוב';
+    return 'לילה טוב';
+  }
 
   return (
     <>
       <div className="admin-header">
         <div>
-          <h1>{greeting}.</h1>
+          <h1>{getGreeting()}.</h1>
           <div className="admin-header-meta">
             {user?.email && <span>מחובר כ-{user.email}</span>}
           </div>
