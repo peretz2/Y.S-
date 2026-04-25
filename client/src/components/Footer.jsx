@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
+import { useContent } from '../content/SiteContentContext.jsx';
 import './Footer.css';
 
 export default function Footer() {
   const { info: companyInfo } = useCompanyInfo();
+  const { t } = useContent();
   const year = new Date().getFullYear();
   return (
     <footer className="ft">
@@ -11,21 +13,21 @@ export default function Footer() {
         <div>
           <h3>{companyInfo.name}</h3>
           <p className="ft-tag">
-            {companyInfo.nameEn} — נגרות וחיפויים ברמה אדריכלית. מייצרים ומתקינים מגבעת אלה מאז {companyInfo.founded}.
+            {companyInfo.nameEn} — {t('footer.tagline', 'נגרות וחיפויים בגובה העיניים')}. מייצרים ומתקינים מגבעת אלה מאז {companyInfo.founded}.
           </p>
         </div>
         <div>
-          <h4>ניווט</h4>
+          <h4>{t('footer.quickLinks', 'ניווט')}</h4>
           <ul>
-            <li><Link to="/">דף הבית</Link></li>
-            <li><Link to="/about">אודות</Link></li>
-            <li><Link to="/services">שירותים</Link></li>
-            <li><Link to="/projects">פרויקטים</Link></li>
-            <li><Link to="/contact">צור קשר</Link></li>
+            <li><Link to="/">{t('nav.home', 'דף הבית')}</Link></li>
+            <li><Link to="/about">{t('nav.about', 'אודות')}</Link></li>
+            <li><Link to="/services">{t('nav.services', 'שירותים')}</Link></li>
+            <li><Link to="/projects">{t('nav.projects', 'פרויקטים')}</Link></li>
+            <li><Link to="/contact">{t('nav.contact', 'צור קשר')}</Link></li>
           </ul>
         </div>
         <div>
-          <h4>יצירת קשר</h4>
+          <h4>{t('footer.contact', 'יצירת קשר')}</h4>
           <ul>
             <li>{companyInfo.address}</li>
             <li><a href={`tel:${companyInfo.phone}`} className="ltr">{companyInfo.phoneDisplay}</a></li>
@@ -42,11 +44,11 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap ft-bot">
-        <span>© {year} {companyInfo.name} · כל הזכויות שמורות</span>
+        <span>© {year} {companyInfo.name} · {t('footer.rights', 'כל הזכויות שמורות')}</span>
         <nav aria-label="חוקי">
-          <Link to="/terms">תנאי שימוש</Link>
-          <Link to="/privacy">פרטיות</Link>
-          <Link to="/accessibility">נגישות</Link>
+          <Link to="/terms">{t('footer.terms', 'תנאי שימוש')}</Link>
+          <Link to="/privacy">{t('footer.privacy', 'פרטיות')}</Link>
+          <Link to="/accessibility">{t('footer.accessibility', 'נגישות')}</Link>
         </nav>
       </div>
     </footer>

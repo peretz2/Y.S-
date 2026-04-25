@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api.js';
 import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
+import { useContent } from '../content/SiteContentContext.jsx';
 import './Home.css';
 
 const FALLBACK_SERVICES = [
@@ -28,6 +29,7 @@ const PROCESS = [
 
 export default function Home() {
   const { info: companyInfo } = useCompanyInfo();
+  const { t } = useContent();
   const [services, setServices] = useState(FALLBACK_SERVICES);
   const [projects, setProjects] = useState([]);
 
@@ -56,27 +58,26 @@ export default function Home() {
     <>
       <section className="wrap hero">
         <div className="hero-eyebrow">
-          <span className="line" /><span>Y.SCH. Engineers · גבעת אלה · Est. {companyInfo.founded}</span>
+          <span className="line" /><span>{t('home.hero.eyebrow', 'Y.SCH. Engineers · גבעת אלה')} · Est. {companyInfo.founded}</span>
         </div>
         <h1 className="display">
-          נגרות<br />וחיפויים.<br />
-          <em>בגובה העיניים.</em>
+          {t('home.hero.title.1', 'נגרות')}<br />{t('home.hero.title.2', 'וחיפויים.')}<br />
+          <em>{t('home.hero.title.3', 'בגובה העיניים.')}</em>
         </h1>
         <div className="hero-meta">
           <p className="lead">
-            מעל שני עשורים של ייצור נגרות ברמה אדריכלית – חזיתות HPL, חיפויי לובי ונגרות פנים מוקפדת,
-            לפרויקטים פרטיים, מסחריים וציבוריים בכל רחבי הארץ.
+            {t('home.hero.lead', 'מעל שני עשורים של ייצור נגרות ברמה אדריכלית – חזיתות HPL, חיפויי לובי ונגרות פנים מוקפדת, לפרויקטים פרטיים, מסחריים וציבוריים בכל רחבי הארץ.')}
           </p>
           <div className="meta-col">
-            <span className="mono">השירותים שלנו</span>
-            <div className="val">חיפוי HPL · נגרות · לובי</div>
-            <div className="note">תכנון · ייצור · התקנה</div>
+            <span className="mono">{t('home.hero.servicesLabel', 'השירותים שלנו')}</span>
+            <div className="val">{t('home.hero.servicesValue', 'חיפוי HPL · נגרות · לובי')}</div>
+            <div className="note">{t('home.hero.servicesNote', 'תכנון · ייצור · התקנה')}</div>
           </div>
           <div className="meta-col">
-            <span className="mono">לפרויקט חדש</span>
+            <span className="mono">{t('home.hero.ctaLabel', 'לפרויקט חדש')}</span>
             <div className="hero-actions">
-              <Link to="/contact" className="btn">לקבלת הצעת מחיר ←</Link>
-              <Link to="/projects" className="btn btn-ghost">תיק עבודות</Link>
+              <Link to="/contact" className="btn">{t('home.hero.ctaPrimary', 'לקבלת הצעת מחיר ←')}</Link>
+              <Link to="/projects" className="btn btn-ghost">{t('home.hero.ctaGhost', 'תיק עבודות')}</Link>
             </div>
           </div>
         </div>
