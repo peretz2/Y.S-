@@ -5,6 +5,7 @@ import App from './App.jsx';
 import { AuthProvider } from './auth/AuthContext.jsx';
 import { ThemeProvider } from './theme/ThemeContext.jsx';
 import { CompanyInfoProvider } from './company/CompanyInfoContext.jsx';
+import { SiteContentProvider } from './content/SiteContentContext.jsx';
 import './styles/global.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <AuthProvider>
           <CompanyInfoProvider>
-            <App />
+            <SiteContentProvider>
+              <App />
+            </SiteContentProvider>
           </CompanyInfoProvider>
         </AuthProvider>
       </BrowserRouter>
