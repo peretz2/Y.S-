@@ -164,12 +164,12 @@ async function seed() {
   );
   console.log('[seed] company info ready');
 
-  const contentOps = CONTENT_REGISTRY.map(({ key, defaultValue, section, label, multiline }) => ({
+  const contentOps = CONTENT_REGISTRY.map(({ key, defaultValue, section, label, multiline, description, previewType, previewPath }) => ({
     updateOne: {
       filter: { key },
       update: {
         $setOnInsert: { key, value: defaultValue },
-        $set: { section, label, multiline },
+        $set: { section, label, multiline, description: description || '', previewType: previewType || 'plain', previewPath: previewPath || '/' },
       },
       upsert: true,
     },

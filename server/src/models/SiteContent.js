@@ -31,6 +31,9 @@ const SiteContentSchema = new mongoose.Schema(
       maxlength: 200,
     },
     multiline: { type: Boolean, default: false },
+    description: { type: String, default: '' },
+    previewType: { type: String, default: 'plain' },
+    previewPath: { type: String, default: '/' },
     updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
   },
   { timestamps: true }

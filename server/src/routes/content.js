@@ -55,6 +55,9 @@ router.put(
     body('section').optional().isString().trim().isLength({ max: 80 }),
     body('label').optional().isString().trim().isLength({ max: 200 }),
     body('multiline').optional().isBoolean(),
+    body('description').optional().isString().trim().isLength({ max: 500 }),
+    body('previewType').optional().isString().trim().isLength({ max: 50 }),
+    body('previewPath').optional().isString().trim().isLength({ max: 200 }),
   ]),
   async (req, res, next) => {
     try {
@@ -65,6 +68,9 @@ router.put(
       if (req.body.section !== undefined) update.section = req.body.section;
       if (req.body.label !== undefined) update.label = req.body.label;
       if (req.body.multiline !== undefined) update.multiline = req.body.multiline;
+      if (req.body.description !== undefined) update.description = req.body.description;
+      if (req.body.previewType !== undefined) update.previewType = req.body.previewType;
+      if (req.body.previewPath !== undefined) update.previewPath = req.body.previewPath;
       const doc = await SiteContent.findOneAndUpdate(
         { key: req.params.key },
         { $set: update, $setOnInsert: { key: req.params.key } },
