@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
+import { useContent } from '../content/SiteContentContext.jsx';
 import ThemeToggle from './ThemeToggle.jsx';
 import './Navbar.css';
 
-const LINKS = [
-  { to: '/', label: 'דף הבית', end: true },
-  { to: '/about', label: 'אודות' },
-  { to: '/services', label: 'שירותים' },
-  { to: '/projects', label: 'פרויקטים' },
-  { to: '/contact', label: 'צור קשר' },
-];
-
 export default function Navbar() {
   const { info: companyInfo } = useCompanyInfo();
+  const { t } = useContent();
+
+  const LINKS = [
+    { to: '/', label: t('nav.home', 'דף הבית'), end: true },
+    { to: '/about', label: t('nav.about', 'אודות') },
+    { to: '/services', label: t('nav.services', 'שירותים') },
+    { to: '/projects', label: t('nav.projects', 'פרויקטים') },
+    { to: '/contact', label: t('nav.contact', 'צור קשר') },
+  ];
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
