@@ -6,7 +6,9 @@ const User = require('./models/User');
 const Service = require('./models/Service');
 const Project = require('./models/Project');
 const CompanyInfo = require('./models/CompanyInfo');
+const SiteContent = require('./models/SiteContent');
 const { DEFAULTS: COMPANY_DEFAULTS } = require('./routes/companyInfo');
+const { registry: CONTENT_REGISTRY } = require('./content-registry');
 
 const services = [
   {
@@ -161,6 +163,19 @@ async function seed() {
     { upsert: true }
   );
   console.log('[seed] company info ready');
+
+  const contentOps = CONTENT_REGISTRY.map(({ key, defaultValue, section, label, multiline }) => ({
+    updateOne: {
+      filter: { key },
+      update: {
+        $setOnInsert: { key, value: defaultValue },
+        $set: { section, label, multiline },
+      },
+      upsert: true,
+    },
+  }));
+  const contentResult = await SiteContent.bulkWrite(contentOps);
+  console.log(`[seed] site content: ${contentResult.upsertedCount} upserted, ${contentResult.modifiedCount} modified`);
 
   await mongoose.disconnect();
   console.log('[seed] done');
