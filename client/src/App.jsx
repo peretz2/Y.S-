@@ -19,6 +19,7 @@ import ProjectsAdmin from './pages/admin/ProjectsAdmin.jsx';
 import ContactsAdmin from './pages/admin/ContactsAdmin.jsx';
 import UsersAdmin from './pages/admin/UsersAdmin.jsx';
 import CompanyInfoAdmin from './pages/admin/CompanyInfoAdmin.jsx';
+import ContentAdmin from './pages/admin/ContentAdmin.jsx';
 import ForgotPassword from './pages/admin/ForgotPassword.jsx';
 import ResetPassword from './pages/admin/ResetPassword.jsx';
 import ChangePassword from './pages/admin/ChangePassword.jsx';
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="contacts" element={<ContactsAdmin />} />
           <Route path="users" element={<UsersAdmin />} />
           <Route path="company" element={<CompanyInfoAdmin />} />
+          <Route path="content" element={<ContentAdmin />} />
           <Route path="account" element={<ChangePassword />} />
         </Route>
       </Routes>

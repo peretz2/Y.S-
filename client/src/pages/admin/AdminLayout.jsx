@@ -13,6 +13,7 @@ const NAV = [
   ]},
   { section: 'אתר', items: [
     { to: '/admin/company', label: 'פרטי חברה', ico: '☎' },
+    { to: '/admin/content', label: 'תוכן האתר', ico: '✎' },
   ]},
   { section: 'ניהול', items: [
     { to: '/admin/users', label: 'משתמשי אדמין', ico: '◉' },
