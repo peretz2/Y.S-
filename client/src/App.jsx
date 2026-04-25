@@ -24,10 +24,12 @@ import ForgotPassword from './pages/admin/ForgotPassword.jsx';
 import ResetPassword from './pages/admin/ResetPassword.jsx';
 import ChangePassword from './pages/admin/ChangePassword.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <a href="#main-content" className="skip-link">דלג לתוכן</a>
       <Routes>
         <Route element={<Layout />}>

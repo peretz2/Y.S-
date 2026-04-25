@@ -1,10 +1,10 @@
 export const registry = [
   // nav
   { key: 'nav.home',     defaultValue: 'בית',       section: 'nav', label: 'קישור: בית',         description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/' },
-  { key: 'nav.about',    defaultValue: 'אודות',      section: 'nav', label: 'קישור: אודות',        description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/' },
-  { key: 'nav.services', defaultValue: 'שירותים',    section: 'nav', label: 'קישור: שירותים',      description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/' },
-  { key: 'nav.projects', defaultValue: 'פרויקטים',   section: 'nav', label: 'קישור: פרויקטים',     description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/' },
-  { key: 'nav.contact',  defaultValue: 'צור קשר',    section: 'nav', label: 'קישור: צור קשר',      description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/' },
+  { key: 'nav.about',    defaultValue: 'אודות',      section: 'nav', label: 'קישור: אודות',        description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/about' },
+  { key: 'nav.services', defaultValue: 'שירותים',    section: 'nav', label: 'קישור: שירותים',      description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/services' },
+  { key: 'nav.projects', defaultValue: 'פרויקטים',   section: 'nav', label: 'קישור: פרויקטים',     description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/projects' },
+  { key: 'nav.contact',  defaultValue: 'צור קשר',    section: 'nav', label: 'קישור: צור קשר',      description: 'פריט בתפריט העליון של האתר', multiline: false, previewType: 'nav-link', previewPath: '/contact' },
 
   // footer
   { key: 'footer.tagline',       defaultValue: 'נגרות וחיפויים בגובה העיניים',  section: 'footer', label: 'סלוגן הפוטר',            description: 'המשפט הקצר שמופיע בפוטר מתחת לשם החברה',           multiline: false, previewType: 'paragraph', previewPath: '/' },
