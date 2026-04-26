@@ -113,6 +113,8 @@ export default function Editable({ contentKey, as: Tag = 'span', multiline = fal
       {open && (
         <div
           ref={popoverRef}
+          onClick={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
           onPointerDown={(e) => e.stopPropagation()}
           style={{
             position: 'absolute',
@@ -137,6 +139,7 @@ export default function Editable({ contentKey, as: Tag = 'span', multiline = fal
               rows={3}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={onInputKey}
+              onClick={(e) => e.stopPropagation()}
               style={{ width: '100%', resize: 'vertical', fontSize: '0.9rem' }}
             />
           ) : (
@@ -146,13 +149,14 @@ export default function Editable({ contentKey, as: Tag = 'span', multiline = fal
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={onInputKey}
+              onClick={(e) => e.stopPropagation()}
               style={{ width: '100%', fontSize: '0.9rem' }}
             />
           )}
           <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(false); }}
               disabled={saving}
               style={{ background: 'none', border: '1px solid var(--color-border-secondary)', borderRadius: 'var(--border-radius-sm)', padding: '0.25rem 0.75rem', cursor: 'pointer', fontSize: '0.85rem' }}
             >
@@ -160,7 +164,7 @@ export default function Editable({ contentKey, as: Tag = 'span', multiline = fal
             </button>
             <button
               type="button"
-              onClick={save}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); save(); }}
               disabled={saving || draft === value}
               className="btn"
               style={{ fontSize: '0.85rem', padding: '0.25rem 0.75rem' }}
