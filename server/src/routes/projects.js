@@ -58,6 +58,14 @@ router.get('/', async (_req, res, next) => {
   } catch (err) { next(err); }
 });
 
+router.get('/slug/:slug', async (req, res, next) => {
+  try {
+    const project = await Project.findOne({ slug: req.params.slug });
+    if (!project) return res.status(404).json({ error: 'לא נמצא' });
+    res.json(withImagesFallback(project));
+  } catch (err) { next(err); }
+});
+
 router.get('/:id', idValidator, async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id);

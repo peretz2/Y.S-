@@ -82,7 +82,12 @@ export default function Projects() {
         ) : (
           <div className="proj-grid">
             {filtered.map((p, i) => (
-              <article key={p._id} className="proj-card">
+              <Link
+                key={p._id}
+                to={`/projects/${p.slug}`}
+                className="proj-card"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
                 <div
                   className="proj-media"
                   style={p.imageUrl ? { backgroundImage: `url(${p.imageUrl})` } : undefined}
@@ -120,7 +125,7 @@ export default function Projects() {
                     <dt>Year</dt><dd>{p.year || '—'}</dd>
                   </dl>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         )}
