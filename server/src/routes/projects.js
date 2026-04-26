@@ -33,14 +33,28 @@ const bodyValidator = runValidators([
     .optional({ nullable: true })
     .isString().isLength({ max: 2048 })
     .custom(isSafeImageUrl).withMessage('כתובת תמונה לא תקינה'),
+  body('images').optional().isArray({ max: 20 }),
+  body('images.*.url')
+    .optional().isString().trim().isLength({ min: 1, max: 1000 })
+    .custom(isSafeImageUrl).withMessage('כתובת תמונה לא תקינה'),
+  body('images.*.caption').optional().isString().trim().isLength({ max: 500 }),
+  body('images.*.order').optional().isInt({ min: 0, max: 100 }),
   body('order').optional().isInt({ min: 0, max: 9999 }),
   body('isFeatured').optional().isBoolean(),
 ]);
 
+function withImagesFallback(doc) {
+  const obj = doc.toObject ? doc.toObject() : doc;
+  if ((!obj.images || obj.images.length === 0) && obj.imageUrl) {
+    obj.images = [{ url: obj.imageUrl, caption: '', order: 0 }];
+  }
+  return obj;
+}
+
 router.get('/', async (_req, res, next) => {
   try {
     const projects = await Project.find().sort({ order: 1, year: -1, createdAt: -1 });
-    res.json(projects);
+    res.json(projects.map(withImagesFallback));
   } catch (err) { next(err); }
 });
 
@@ -48,7 +62,7 @@ router.get('/:id', idValidator, async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id);
     if (!project) return res.status(404).json({ error: 'לא נמצא' });
-    res.json(project);
+    res.json(withImagesFallback(project));
   } catch (err) { next(err); }
 });
 
@@ -64,12 +78,11 @@ router.post('/', requireAuth, bodyValidator, async (req, res, next) => {
 
 router.put('/:id', requireAuth, idValidator, bodyValidator, async (req, res, next) => {
   try {
-    const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const project = await Project.findById(req.params.id);
     if (!project) return res.status(404).json({ error: 'לא נמצא' });
-    res.json(project);
+    Object.assign(project, req.body);
+    await project.save();
+    res.json(withImagesFallback(project));
   } catch (err) {
     if (err.code === 11000) return res.status(409).json({ error: 'Slug כבר קיים' });
     next(err);

@@ -94,6 +94,17 @@ export default function Projects() {
                     </span>
                   )}
                   <span className="proj-num">№ {String(i + 1).padStart(2, '0')}</span>
+                  {p.images && p.images.length > 1 && (
+                    <span style={{
+                      position: 'absolute', bottom: 8, insetInlineEnd: 8,
+                      background: 'rgba(0,0,0,0.6)', color: '#fff',
+                      fontSize: '0.72rem', fontWeight: 600,
+                      padding: '2px 7px', borderRadius: 4,
+                      lineHeight: 1.5,
+                    }}>
+                      +{p.images.length - 1}
+                    </span>
+                  )}
                 </div>
                 <div className="proj-body">
                   <div className="proj-mono">

@@ -4,7 +4,37 @@ import ImageUpload from '../../components/ImageUpload.jsx';
 
 const blank = {
   title: '', slug: '', category: '', location: '', year: new Date().getFullYear(),
-  summary: '', description: '', imageUrl: '', order: 0, isFeatured: false,
+  summary: '', description: '', images: [], order: 0, isFeatured: false,
+};
+
+const cardStyle = {
+  border: '1px solid var(--border)',
+  borderRadius: 'var(--radius)',
+  overflow: 'hidden',
+  background: 'var(--surface)',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const imgPreviewStyle = {
+  width: '100%',
+  aspectRatio: '4/3',
+  objectFit: 'cover',
+  display: 'block',
+  background: 'var(--border)',
+};
+
+const cardBodyStyle = {
+  padding: '0.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.4rem',
+};
+
+const cardActionsStyle = {
+  display: 'flex',
+  gap: '0.25rem',
+  alignItems: 'center',
 };
 
 export default function ProjectsAdmin() {
@@ -26,8 +56,57 @@ export default function ProjectsAdmin() {
   useEffect(() => { load(); }, []);
 
   function openNew() { setEditing('new'); setForm(blank); setErr(''); }
-  function openEdit(item) { setEditing(item._id); setForm({ ...blank, ...item }); setErr(''); }
+
+  function openEdit(item) {
+    let images = item.images && item.images.length
+      ? [...item.images]
+      : item.imageUrl
+        ? [{ url: item.imageUrl, caption: '', order: 0 }]
+        : [];
+    setEditing(item._id);
+    setForm({ ...blank, ...item, images });
+    setErr('');
+  }
+
   function close() { setEditing(null); setErr(''); }
+
+  // ── image gallery helpers ────────────────────────────────────────────────
+
+  function addImage(url) {
+    setForm((f) => ({
+      ...f,
+      images: [...f.images, { url, caption: '', order: f.images.length }],
+    }));
+  }
+
+  function removeImage(index) {
+    setForm((f) => {
+      const next = f.images.filter((_, i) => i !== index);
+      next.forEach((img, i) => { img.order = i; });
+      return { ...f, images: next };
+    });
+  }
+
+  function moveImage(index, direction) {
+    setForm((f) => {
+      const next = [...f.images];
+      const target = direction === 'up' ? index - 1 : index + 1;
+      if (target < 0 || target >= next.length) return f;
+      [next[index], next[target]] = [next[target], next[index]];
+      next.forEach((img, i) => { img.order = i; });
+      return { ...f, images: next };
+    });
+  }
+
+  function updateCaption(index, caption) {
+    setForm((f) => {
+      const next = [...f.images];
+      next[index] = { ...next[index], caption };
+      return { ...f, images: next };
+    });
+  }
+
+  // ── save ─────────────────────────────────────────────────────────────────
 
   async function save(e) {
     e.preventDefault();
@@ -37,7 +116,11 @@ export default function ProjectsAdmin() {
         ...form,
         year: form.year ? Number(form.year) : undefined,
         order: Number(form.order) || 0,
+        images: form.images,
       };
+      // don't send legacy imageUrl — server derives it from images[0]
+      delete payload.imageUrl;
+
       if (editing === 'new') {
         await api.post('/projects', payload);
       } else {
@@ -84,6 +167,7 @@ export default function ProjectsAdmin() {
               <th>קטגוריה</th>
               <th>מיקום</th>
               <th>שנה</th>
+              <th>תמונות</th>
               <th>מומלץ</th>
               <th style={{ width: 160 }}>פעולות</th>
             </tr>
@@ -96,6 +180,7 @@ export default function ProjectsAdmin() {
                 <td>{p.category}</td>
                 <td>{p.location}</td>
                 <td>{p.year || '—'}</td>
+                <td>{p.images?.length || (p.imageUrl ? 1 : 0)}</td>
                 <td>{p.isFeatured ? '⭐' : '—'}</td>
                 <td className="admin-actions">
                   <button className="btn btn-outline" onClick={() => openEdit(p)}>עריכה</button>
@@ -104,7 +189,7 @@ export default function ProjectsAdmin() {
               </tr>
             ))}
             {items.length === 0 && (
-              <tr><td colSpan={7} className="text-center text-muted">אין פרויקטים עדיין.</td></tr>
+              <tr><td colSpan={8} className="text-center text-muted">אין פרויקטים עדיין.</td></tr>
             )}
           </tbody>
         </table>
@@ -150,11 +235,81 @@ export default function ProjectsAdmin() {
               <textarea value={form.description} onChange={update('description')}
                         placeholder="תיאור מורחב — חומרים, היקף, אתגרים…" />
             </div>
-            <ImageUpload
-              value={form.imageUrl}
-              onChange={(url) => setForm((f) => ({ ...f, imageUrl: url }))}
-              label="תמונת פרויקט"
-            />
+
+            {/* ── multi-image gallery ─────────────────────────────────────── */}
+            <div className="form-group">
+              <label>תמונות הפרויקט</label>
+              {form.images.length > 0 && (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '0.75rem',
+                  marginBottom: '0.75rem',
+                }}>
+                  {form.images.map((img, i) => (
+                    <div key={i} style={cardStyle}>
+                      <div style={{ position: 'relative' }}>
+                        <img src={img.url} alt="" style={imgPreviewStyle} />
+                        {i === 0 && (
+                          <span style={{
+                            position: 'absolute', top: 6, insetInlineStart: 6,
+                            background: 'rgb(17,17,17)', color: '#fff',
+                            fontSize: '0.65rem', fontWeight: 600,
+                            padding: '2px 6px', borderRadius: 4,
+                          }}>
+                            ראשית
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removeImage(i)}
+                          aria-label="הסר תמונה"
+                          style={{
+                            position: 'absolute', top: 4, insetInlineEnd: 4,
+                            width: 24, height: 24, borderRadius: '50%',
+                            background: 'rgba(220,38,38,0.9)', color: '#fff',
+                            border: 'none', cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: '14px', lineHeight: 1, padding: 0,
+                          }}
+                        >×</button>
+                      </div>
+                      <div style={cardBodyStyle}>
+                        <input
+                          type="text"
+                          value={img.caption}
+                          onChange={(e) => updateCaption(i, e.target.value)}
+                          placeholder="כיתוב (אופציונלי)"
+                          style={{ fontSize: '0.8rem' }}
+                        />
+                        <div style={cardActionsStyle}>
+                          <button
+                            type="button"
+                            className="btn btn-outline"
+                            onClick={() => moveImage(i, 'up')}
+                            disabled={i === 0}
+                            style={{ flex: 1, padding: '2px 0', fontSize: '0.8rem' }}
+                          >▲</button>
+                          <button
+                            type="button"
+                            className="btn btn-outline"
+                            onClick={() => moveImage(i, 'down')}
+                            disabled={i === form.images.length - 1}
+                            style={{ flex: 1, padding: '2px 0', fontSize: '0.8rem' }}
+                          >▼</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <ImageUpload
+                value=""
+                onChange={addImage}
+                label="+ הוסף תמונה"
+              />
+            </div>
+
             <div className="form-group">
               <label>סדר תצוגה</label>
               <input type="number" value={form.order} onChange={update('order')} />
