@@ -25,6 +25,7 @@ import ResetPassword from './pages/admin/ResetPassword.jsx';
 import ChangePassword from './pages/admin/ChangePassword.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import ScrollToTopButton from './components/ScrollToTopButton.jsx';
 import AdminBar from './components/AdminBar.jsx';
 
 export default function App() {
@@ -69,6 +70,7 @@ export default function App() {
         </Route>
       </Routes>
       <AccessibilityWidget />
+      <ScrollToTopButton />
     </>
   );
 }
