@@ -1,71 +1,76 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     let ticking = false;
     function handleScroll() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const newVisible = window.scrollY > 100;
-          console.log('[ScrollToTop]', { scrollY: window.scrollY, visible: newVisible });
-          setVisible(newVisible);
+          const scrolled = window.scrollY > 400;
+          setVisible(scrolled);
           ticking = false;
         });
         ticking = true;
       }
     }
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 
-  // INLINE styles — no class dependency
-  const btnStyle = {
+  if (!mounted) return null;
+
+  const buttonStyles = {
     position: 'fixed',
     bottom: '24px',
-    insetInlineStart: '24px',
-    width: '48px',
-    height: '48px',
+    insetInlineEnd: '24px',
+    width: '52px',
+    height: '52px',
     borderRadius: '50%',
-    background: '#111',
-    color: '#fff',
-    border: 'none',
+    background: 'rgb(17, 17, 17)',
+    color: 'rgb(255, 255, 255)',
+    border: '2px solid rgb(255, 255, 255)',
     cursor: 'pointer',
-    display: 'flex',
+    display: visible ? 'flex' : 'none',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '22px',
-    fontWeight: 600,
+    fontSize: '24px',
+    fontWeight: 'bold',
     lineHeight: 1,
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
-    opacity: visible ? 1 : 0,
-    visibility: visible ? 'visible' : 'hidden',
-    transform: visible ? 'translateY(0)' : 'translateY(8px)',
-    transition: 'opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease',
-    zIndex: 90,
+    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.35)',
+    zIndex: 999,
     padding: 0,
     margin: 0,
-    pointerEvents: visible ? 'auto' : 'none',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    userSelect: 'none',
+    WebkitTapHighlightColor: 'transparent',
   };
 
-  console.log('[ScrollToTop] RENDERING button, visible:', visible);
-
-  return (
+  return createPortal(
     <button
       type="button"
       onClick={scrollToTop}
       aria-label="חזרה לראש העמוד"
       title="חזרה לראש העמוד"
-      style={btnStyle}
+      style={buttonStyles}
       data-testid="scroll-top-btn"
     >
       ↑
-    </button>
+    </button>,
+    document.body
   );
 }
