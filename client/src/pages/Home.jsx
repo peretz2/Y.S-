@@ -26,11 +26,12 @@ export default function Home() {
   ];
 
   const PROCESS = [
-    { n: '01', t: t('home.process.step1.t', 'פגישת היכרות'),  d: t('home.process.step1.d', 'הבנת הצרכים, סיור באתר ובחירת כיוון אדריכלי ראשוני.') },
-    { n: '02', t: t('home.process.step2.t', 'תכנון ופירוט'),  d: t('home.process.step2.d', 'שרטוטים טכניים, דגמי חומרים והצעת מחיר מפורטת.') },
-    { n: '03', t: t('home.process.step3.t', 'ייצור במפעל'),   d: t('home.process.step3.d', 'ייצור CNC מדויק בבית המלאכה בגבעת אלה, בקרת איכות לכל שלב.') },
-    { n: '04', t: t('home.process.step4.t', 'התקנה ומסירה'),  d: t('home.process.step4.d', 'התקנה באתר ע״י צוות מקצועי, בדיקה סופית ומסירה מסודרת.') },
+    { key: 'step1', n: '01', t: t('home.process.step1.t', 'פגישת היכרות'),  d: t('home.process.step1.d', 'הבנת הצרכים, סיור באתר ובחירת כיוון אדריכלי ראשוני.') },
+    { key: 'step2', n: '02', t: t('home.process.step2.t', 'תכנון ופירוט'),  d: t('home.process.step2.d', 'שרטוטים טכניים, דגמי חומרים והצעת מחיר מפורטת.') },
+    { key: 'step3', n: '03', t: t('home.process.step3.t', 'ייצור במפעל'),   d: t('home.process.step3.d', 'ייצור CNC מדויק בבית המלאכה בגבעת אלה, בקרת איכות לכל שלב.') },
+    { key: 'step4', n: '04', t: t('home.process.step4.t', 'התקנה ומסירה'),  d: t('home.process.step4.d', 'התקנה באתר ע״י צוות מקצועי, בדיקה סופית ומסירה מסודרת.') },
   ];
+
   const [services, setServices] = useState(FALLBACK_SERVICES);
   const [projects, setProjects] = useState([]);
 
@@ -111,8 +112,12 @@ export default function Home() {
 
       <section id="services-section" className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§01</span><span className="k">{t('home.services.idxKey', 'השירותים')}</span></div>
-          <h2>{t('home.services.title.1', 'חמישה תחומים.')}<br /><em>{t('home.services.title.2', 'מפעל אחד.')}</em> {t('home.services.title.3', 'צוות אחד.')}</h2>
+          <div className="idx"><span className="n">§01</span><span className="k"><Editable contentKey="home.services.idxKey" as="span">{t('home.services.idxKey', 'השירותים')}</Editable></span></div>
+          <h2>
+            <Editable contentKey="home.services.title.1" as="span">{t('home.services.title.1', 'חמישה תחומים.')}</Editable><br />
+            <em><Editable contentKey="home.services.title.2" as="span">{t('home.services.title.2', 'מפעל אחד.')}</Editable></em>{' '}
+            <Editable contentKey="home.services.title.3" as="span">{t('home.services.title.3', 'צוות אחד.')}</Editable>
+          </h2>
         </div>
         <div className="svc-list">
           {services.map((s, i) => (
@@ -120,7 +125,7 @@ export default function Home() {
               <span className="num">{String(s.order || i + 1).padStart(2, '0')}</span>
               <span className="name">{s.title}</span>
               <span className="desc">{s.shortDescription || s.description || ''}</span>
-              <span className="more">{t('home.services.more', 'לפרטים')}</span>
+              <span className="more"><Editable contentKey="home.services.more" as="span">{t('home.services.more', 'לפרטים')}</Editable></span>
             </Link>
           ))}
         </div>
@@ -132,7 +137,7 @@ export default function Home() {
             <div key={s.k} className="stat">
               <div className="k">{s.k}</div>
               <div className="v">{s.v}<span className="sup">{s.sup}</span></div>
-              <div className="n">{s.n}</div>
+              <div className="n"><Editable contentKey={`home.stats.${s.k.toLowerCase()}`} as="span">{s.n}</Editable></div>
             </div>
           ))}
         </div>
@@ -141,8 +146,12 @@ export default function Home() {
       {projects.length > 0 && (
         <section id="projects-section" className="wrap sec">
           <div className="sec-head">
-            <div className="idx"><span className="n">§02</span><span className="k">{t('home.projects.idxKey', 'פרויקטים נבחרים')}</span></div>
-            <h2>{t('home.projects.title.1', 'עבודות שנעשו')}<br />{t('home.projects.title.2', 'בשלוש השנים')} <em>{t('home.projects.title.3', 'האחרונות.')}</em></h2>
+            <div className="idx"><span className="n">§02</span><span className="k"><Editable contentKey="home.projects.idxKey" as="span">{t('home.projects.idxKey', 'פרויקטים נבחרים')}</Editable></span></div>
+            <h2>
+              <Editable contentKey="home.projects.title.1" as="span">{t('home.projects.title.1', 'עבודות שנעשו')}</Editable><br />
+              <Editable contentKey="home.projects.title.2" as="span">{t('home.projects.title.2', 'בשלוש השנים')}</Editable>{' '}
+              <em><Editable contentKey="home.projects.title.3" as="span">{t('home.projects.title.3', 'האחרונות.')}</Editable></em>
+            </h2>
           </div>
           <div className="proj-featured">
             {projects.map((p, i) => (
@@ -164,22 +173,26 @@ export default function Home() {
             ))}
           </div>
           <div className="sec-cta">
-            <Link to="/projects" className="btn btn-ghost">{t('home.projects.viewAll', 'כל תיק העבודות ←')}</Link>
+            <Link to="/projects" className="btn btn-ghost"><Editable contentKey="home.projects.viewAll" as="span">{t('home.projects.viewAll', 'כל תיק העבודות ←')}</Editable></Link>
           </div>
         </section>
       )}
 
       <section id="process" className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§03</span><span className="k">{t('home.process.idxKey', 'התהליך')}</span></div>
-          <h2>{t('home.process.title.1', 'ארבעה שלבים.')}<br />{t('home.process.title.2', 'מפגישה ראשונה')} <em>{t('home.process.title.3', 'עד מסירה.')}</em></h2>
+          <div className="idx"><span className="n">§03</span><span className="k"><Editable contentKey="home.process.idxKey" as="span">{t('home.process.idxKey', 'התהליך')}</Editable></span></div>
+          <h2>
+            <Editable contentKey="home.process.title.1" as="span">{t('home.process.title.1', 'ארבעה שלבים.')}</Editable><br />
+            <Editable contentKey="home.process.title.2" as="span">{t('home.process.title.2', 'מפגישה ראשונה')}</Editable>{' '}
+            <em><Editable contentKey="home.process.title.3" as="span">{t('home.process.title.3', 'עד מסירה.')}</Editable></em>
+          </h2>
         </div>
         <div className="process">
           {PROCESS.map((p) => (
             <div key={p.n} className="step">
               <div className="sn">{p.n}</div>
-              <h4>{p.t}</h4>
-              <p>{p.d}</p>
+              <h4><Editable contentKey={`home.process.${p.key}.t`} as="span">{p.t}</Editable></h4>
+              <p><Editable contentKey={`home.process.${p.key}.d`} as="span" multiline>{p.d}</Editable></p>
             </div>
           ))}
         </div>
@@ -187,10 +200,13 @@ export default function Home() {
 
       <section id="cta" className="cta">
         <div className="wrap cta-inner">
-          <h2>{t('home.cta.title.1', 'פרויקט חדש באופק?')}<br /><em>{t('home.cta.title.2', 'נשמח לשמוע.')}</em></h2>
+          <h2>
+            <Editable contentKey="home.cta.title.1" as="span">{t('home.cta.title.1', 'פרויקט חדש באופק?')}</Editable><br />
+            <em><Editable contentKey="home.cta.title.2" as="span">{t('home.cta.title.2', 'נשמח לשמוע.')}</Editable></em>
+          </h2>
           <div className="cta-side">
-            <p>{t('home.cta.body', 'שיחת ייעוץ ראשונית ללא עלות. אנחנו עונים בתוך יום עסקים ומגיעים לסיור באתר על פי צורך.')}</p>
-            <Link to="/contact" className="btn btn-inv">{t('home.cta.button', 'להתחלת שיחה ←')}</Link>
+            <p><Editable contentKey="home.cta.body" as="span" multiline>{t('home.cta.body', 'שיחת ייעוץ ראשונית ללא עלות. אנחנו עונים בתוך יום עסקים ומגיעים לסיור באתר על פי צורך.')}</Editable></p>
+            <Link to="/contact" className="btn btn-inv"><Editable contentKey="home.cta.button" as="span">{t('home.cta.button', 'להתחלת שיחה ←')}</Editable></Link>
           </div>
         </div>
       </section>
