@@ -8,7 +8,9 @@ export default function ScrollToTopButton() {
     function handleScroll() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setVisible(window.scrollY > 400);
+          const newVisible = window.scrollY > 100;
+          console.log('[ScrollToTop]', { scrollY: window.scrollY, visible: newVisible });
+          setVisible(newVisible);
           ticking = false;
         });
         ticking = true;
