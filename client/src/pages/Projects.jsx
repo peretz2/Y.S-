@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api.js';
+import { useContent } from '../content/SiteContentContext.jsx';
 import './Projects.css';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [category, setCategory] = useState('הכל');
   const [loading, setLoading] = useState(true);
+  const { t } = useContent();
 
   useEffect(() => {
     let alive = true;
@@ -35,25 +37,20 @@ export default function Projects() {
     <>
       <section className="wrap page-hero">
         <div className="hero-eyebrow">
-          <span className="line" /><span>§ תיק עבודות · Selected works</span>
+          <span className="line" /><span>{t('projects.eyebrow', '§ תיק עבודות · Selected works')}</span>
         </div>
         <h1 className="display">
-          מה שעשינו<br /><em>בשנים האחרונות.</em>
+          {t('projects.title.1', 'מה שעשינו')}<br /><em>{t('projects.title.2', 'בשנים האחרונות.')}</em>
         </h1>
         <div className="page-lead">
-          <p>
-            מבחר פרויקטים בתחומי הנגרות לבניין, חיפויי HPL וחיפוי לובאים — מפרויקטים פרטיים ועד לבנייני משרדים ומגורים.
-            כל פרויקט תוכנן, יוצר והותקן על ידי הצוות שלנו.
-          </p>
-          <p>
-            הגלריה מתעדכנת באופן שוטף. לקוח שעבדנו איתו ולא מופיע כאן — כנראה בכוונה: חלק מהפרויקטים נשארים פרטיים לבקשת המזמין.
-          </p>
+          <p>{t('projects.lead.1', 'מבחר פרויקטים בתחומי הנגרות לבניין, חיפויי HPL וחיפוי לובאים — מפרויקטים פרטיים ועד לבנייני משרדים ומגורים. כל פרויקט תוכנן, יוצר והותקן על ידי הצוות שלנו.')}</p>
+          <p>{t('projects.lead.2', 'הגלריה מתעדכנת באופן שוטף. לקוח שעבדנו איתו ולא מופיע כאן — כנראה בכוונה: חלק מהפרויקטים נשארים פרטיים לבקשת המזמין.')}</p>
         </div>
       </section>
 
       <section className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§01</span><span className="k">הפרויקטים</span></div>
+          <div className="idx"><span className="n">§01</span><span className="k">{t('projects.section.label', 'הפרויקטים')}</span></div>
           <h2>
             {filtered.length ? <>{String(filtered.length).padStart(2, '0')} עבודות<br /><em>נבחרות.</em></> : <>אין עדיין<br /><em>פרויקטים.</em></>}
           </h2>
@@ -77,9 +74,9 @@ export default function Projects() {
         )}
 
         {loading ? (
-          <p className="text-muted text-center">טוען…</p>
+          <p className="text-muted text-center">{t('projects.loading', 'טוען…')}</p>
         ) : filtered.length === 0 ? (
-          <p className="text-muted text-center">אין פרויקטים להצגה.</p>
+          <p className="text-muted text-center">{t('projects.empty', 'אין פרויקטים להצגה.')}</p>
         ) : (
           <div className="proj-grid">
             {filtered.map((p, i) => (
@@ -118,10 +115,10 @@ export default function Projects() {
 
       <section className="cta">
         <div className="wrap cta-inner">
-          <h2>יש לכם פרויקט<br /><em>דומה בתכנון?</em></h2>
+          <h2>{t('projects.cta.heading', 'יש לכם פרויקט')}<br /><em>{t('projects.cta.heading.em', 'דומה בתכנון?')}</em></h2>
           <div className="cta-side">
-            <p>שלחו לנו תכניות ראשוניות או תיאור של הכיוון — נחזור עם כיוון מחיר ראשוני.</p>
-            <Link to="/contact" className="btn btn-inv">התחלת שיחה ←</Link>
+            <p>{t('projects.cta.lead', 'שלחו לנו תכניות ראשוניות או תיאור של הכיוון — נחזור עם כיוון מחיר ראשוני.')}</p>
+            <Link to="/contact" className="btn btn-inv">{t('projects.cta.button', 'התחלת שיחה ←')}</Link>
           </div>
         </div>
       </section>

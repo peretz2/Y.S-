@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api.js';
+import { useContent } from '../content/SiteContentContext.jsx';
 import './Services.css';
 
 const FALLBACK = [
@@ -18,6 +19,7 @@ const MATERIALS = [
 export default function Services() {
   const [services, setServices] = useState(FALLBACK);
   const [loading, setLoading] = useState(true);
+  const { t } = useContent();
 
   useEffect(() => {
     let alive = true;
@@ -38,30 +40,24 @@ export default function Services() {
     <>
       <section className="wrap page-hero">
         <div className="hero-eyebrow">
-          <span className="line" /><span>§ שירותים · תכנון · ייצור · התקנה</span>
+          <span className="line" /><span>{t('services.eyebrow', '§ שירותים · תכנון · ייצור · התקנה')}</span>
         </div>
         <h1 className="display">
-          מה שאנחנו<br /><em>יודעים לעשות.</em>
+          {t('services.title.1', 'מה שאנחנו')}<br /><em>{t('services.title.2', 'יודעים לעשות.')}</em>
         </h1>
         <div className="page-lead">
-          <p>
-            מגוון שירותי נגרות וחיפוי ברמה אדריכלית — מהתכנון הראשוני ועד ההתקנה באתר.
-            כל פרויקט מתחיל בהבנה של הצורך ונבנה סביב החומרים והפרטים שנכונים לו.
-          </p>
-          <p>
-            צוות הנדסי ומפעל CNC במקום אחד. לקוחות פרטיים, אדריכלים וקבלנים ראשיים
-            עובדים איתנו מאז 2005.
-          </p>
+          <p>{t('services.lead.1', 'מגוון שירותי נגרות וחיפוי ברמה אדריכלית — מהתכנון הראשוני ועד ההתקנה באתר. כל פרויקט מתחיל בהבנה של הצורך ונבנה סביב החומרים והפרטים שנכונים לו.')}</p>
+          <p>{t('services.lead.2', 'צוות הנדסי ומפעל CNC במקום אחד. לקוחות פרטיים, אדריכלים וקבלנים ראשיים עובדים איתנו מאז 2005.')}</p>
         </div>
       </section>
 
       <section className="wrap sec svc-sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§01</span><span className="k">הקטלוג</span></div>
-          <h2>חמישה תחומים,<br />צוות <em>אחד.</em></h2>
+          <div className="idx"><span className="n">§01</span><span className="k">{t('services.catalog.label', 'הקטלוג')}</span></div>
+          <h2>{t('services.catalog.heading', 'חמישה תחומים,')}<br />{t('services.catalog.heading.pre', 'צוות ')} <em>{t('services.catalog.heading.em', 'אחד.')}</em></h2>
         </div>
         {loading && services === FALLBACK ? (
-          <p className="text-muted text-center">טוען…</p>
+          <p className="text-muted text-center">{t('services.loading', 'טוען…')}</p>
         ) : (
           <div className="svc-list">
             {services.map((s, i) => (
@@ -85,8 +81,8 @@ export default function Services() {
 
       <section className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§02</span><span className="k">חומרים</span></div>
-          <h2>החומרים שאיתם<br /><em>אנחנו עובדים.</em></h2>
+          <div className="idx"><span className="n">§02</span><span className="k">{t('services.materials.label', 'חומרים')}</span></div>
+          <h2>{t('services.materials.heading', 'החומרים שאיתם')}<br /><em>{t('services.materials.heading.em', 'אנחנו עובדים.')}</em></h2>
         </div>
         <ul className="mat-grid">
           {MATERIALS.map((m, i) => (
@@ -100,10 +96,10 @@ export default function Services() {
 
       <section className="cta">
         <div className="wrap cta-inner">
-          <h2>פרויקט בתכנון?<br /><em>נשמח לעזור.</em></h2>
+          <h2>{t('services.cta.heading', 'פרויקט בתכנון?')}<br /><em>{t('services.cta.heading.em', 'נשמח לעזור.')}</em></h2>
           <div className="cta-side">
-            <p>שלחו לנו מספר שורות או תכניות ראשוניות — נחזור אליכם עם כיוון ברור תוך יום עסקים.</p>
-            <Link to="/contact" className="btn btn-inv">לקבלת הצעת מחיר ←</Link>
+            <p>{t('services.cta.lead', 'שלחו לנו מספר שורות או תכניות ראשוניות — נחזור אליכם עם כיוון ברור תוך יום עסקים.')}</p>
+            <Link to="/contact" className="btn btn-inv">{t('services.cta.button', 'לקבלת הצעת מחיר ←')}</Link>
           </div>
         </div>
       </section>
