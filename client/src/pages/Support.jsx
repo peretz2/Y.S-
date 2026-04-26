@@ -1,4 +1,6 @@
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
+import EditMarkdownButton from '../components/EditMarkdownButton.jsx';
 import MarkdownContent from '../components/MarkdownContent.jsx';
 
 const FALLBACK_BODY = `## יצירת קשר מהיר
@@ -54,14 +56,15 @@ export default function Support() {
   return (
     <section className="wrap" style={{ paddingBlock: '4rem' }}>
       <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 500, marginBottom: '0.5rem' }}>
-        {t('legal.support.title', 'שירות ותמיכה')}
+        <Editable contentKey="legal.support.title" as="span">{t('legal.support.title', 'שירות ותמיכה')}</Editable>
       </h1>
       <p className="text-muted" style={{ marginBottom: '2rem' }}>
-        {t('legal.support.lastUpdated', 'שאלות נפוצות ודרכי יצירת קשר')}
+        <Editable contentKey="legal.support.lastUpdated" as="span">{t('legal.support.lastUpdated', 'שאלות נפוצות ודרכי יצירת קשר')}</Editable>
       </p>
       <MarkdownContent>
         {t('legal.support.body', FALLBACK_BODY)}
       </MarkdownContent>
+      <EditMarkdownButton contentKey="legal.support.body" />
     </section>
   );
 }

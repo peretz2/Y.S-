@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import api from '../../api.js';
 import ContentPreview from './ContentPreview.jsx';
 
@@ -153,11 +154,21 @@ function ItemCard({ item, onSaved, onToast }) {
 
 // ─── Main page ───────────────────────────────────────────
 export default function ContentAdmin() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(searchParams.get('search') || '');
   const [toast, setToast] = useState(null);
+
+  function handleSearchChange(value) {
+    setSearch(value);
+    if (value) {
+      setSearchParams({ search: value });
+    } else {
+      setSearchParams({});
+    }
+  }
 
   async function load() {
     setLoading(true);
@@ -217,7 +228,7 @@ export default function ContentAdmin() {
               type="search"
               placeholder="חיפוש טקסט באתר..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               style={{ width: '100%' }}
             />
           </div>

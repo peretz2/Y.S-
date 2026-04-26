@@ -1,4 +1,6 @@
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
+import EditMarkdownButton from '../components/EditMarkdownButton.jsx';
 import MarkdownContent from '../components/MarkdownContent.jsx';
 
 const FALLBACK_BODY = `ברוכים הבאים לאתר של י.ש. מהנדסים בע״מ (להלן: "החברה"). השימוש באתר כפוף לתנאים המפורטים להלן. השימוש באתר מהווה הסכמה לתנאים אלו. אם אינך מסכים/ה לאחד מהתנאים, אנא הימנע/י משימוש באתר.
@@ -58,14 +60,15 @@ export default function Terms() {
   return (
     <section className="wrap" style={{ paddingBlock: '4rem' }}>
       <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 500, marginBottom: '0.5rem' }}>
-        {t('legal.terms.title', 'תנאי שימוש')}
+        <Editable contentKey="legal.terms.title" as="span">{t('legal.terms.title', 'תנאי שימוש')}</Editable>
       </h1>
       <p className="text-muted" style={{ marginBottom: '2rem' }}>
-        {t('legal.terms.lastUpdated', 'עודכן לאחרונה: ינואר 2026')}
+        <Editable contentKey="legal.terms.lastUpdated" as="span">{t('legal.terms.lastUpdated', 'עודכן לאחרונה: ינואר 2026')}</Editable>
       </p>
       <MarkdownContent>
         {t('legal.terms.body', FALLBACK_BODY)}
       </MarkdownContent>
+      <EditMarkdownButton contentKey="legal.terms.body" />
     </section>
   );
 }

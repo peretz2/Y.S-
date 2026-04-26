@@ -1,4 +1,6 @@
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
+import EditMarkdownButton from '../components/EditMarkdownButton.jsx';
 import MarkdownContent from '../components/MarkdownContent.jsx';
 
 const FALLBACK_BODY = `## מחויבות לנגישות
@@ -42,14 +44,15 @@ export default function Accessibility() {
   return (
     <section className="wrap" style={{ paddingBlock: '4rem' }}>
       <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 500, marginBottom: '0.5rem' }}>
-        {t('legal.accessibility.title', 'הצהרת נגישות')}
+        <Editable contentKey="legal.accessibility.title" as="span">{t('legal.accessibility.title', 'הצהרת נגישות')}</Editable>
       </h1>
       <p className="text-muted" style={{ marginBottom: '2rem' }}>
-        {t('legal.accessibility.lastUpdated', 'עודכן לאחרונה: ינואר 2026')}
+        <Editable contentKey="legal.accessibility.lastUpdated" as="span">{t('legal.accessibility.lastUpdated', 'עודכן לאחרונה: ינואר 2026')}</Editable>
       </p>
       <MarkdownContent>
         {t('legal.accessibility.body', FALLBACK_BODY)}
       </MarkdownContent>
+      <EditMarkdownButton contentKey="legal.accessibility.body" />
     </section>
   );
 }

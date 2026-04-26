@@ -1,4 +1,6 @@
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
+import EditMarkdownButton from '../components/EditMarkdownButton.jsx';
 import MarkdownContent from '../components/MarkdownContent.jsx';
 
 const FALLBACK_BODY = `י.ש. מהנדסים בע״מ (להלן: "החברה") מכבדת את פרטיות המשתמשים באתר ומתחייבת לשמור על מידע אישי הנמסר במסגרת השימוש בו, בהתאם לחוק הגנת הפרטיות, התשמ"א–1981 ולתקנות שהותקנו מכוחו.
@@ -65,14 +67,15 @@ export default function Privacy() {
   return (
     <section className="wrap" style={{ paddingBlock: '4rem' }}>
       <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 500, marginBottom: '0.5rem' }}>
-        {t('legal.privacy.title', 'מדיניות פרטיות')}
+        <Editable contentKey="legal.privacy.title" as="span">{t('legal.privacy.title', 'מדיניות פרטיות')}</Editable>
       </h1>
       <p className="text-muted" style={{ marginBottom: '2rem' }}>
-        {t('legal.privacy.lastUpdated', 'עודכן לאחרונה: ינואר 2026')}
+        <Editable contentKey="legal.privacy.lastUpdated" as="span">{t('legal.privacy.lastUpdated', 'עודכן לאחרונה: ינואר 2026')}</Editable>
       </p>
       <MarkdownContent>
         {t('legal.privacy.body', FALLBACK_BODY)}
       </MarkdownContent>
+      <EditMarkdownButton contentKey="legal.privacy.body" />
     </section>
   );
 }
