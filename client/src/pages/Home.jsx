@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../api.js';
 import { useCompanyInfo } from '../company/CompanyInfoContext.jsx';
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
 import './Home.css';
 
 const FALLBACK_SERVICES = [
@@ -58,26 +59,27 @@ export default function Home() {
     <>
       <section id="hero" className="wrap hero">
         <div className="hero-eyebrow">
-          <span className="line" /><span>{t('home.hero.eyebrow', 'Y.SCH. Engineers · גבעת אלה')} · Est. {companyInfo.founded}</span>
+          <span className="line" /><span><Editable contentKey="home.hero.eyebrow" as="span">{t('home.hero.eyebrow', 'Y.SCH. Engineers · גבעת אלה')}</Editable>{' · Est. '}{companyInfo.founded}</span>
         </div>
         <h1 className="display">
-          {t('home.hero.title.1', 'נגרות')}<br />{t('home.hero.title.2', 'וחיפויים.')}<br />
-          <em>{t('home.hero.title.3', 'בגובה העיניים.')}</em>
+          <Editable contentKey="home.hero.title.1" as="span">{t('home.hero.title.1', 'נגרות')}</Editable><br />
+          <Editable contentKey="home.hero.title.2" as="span">{t('home.hero.title.2', 'וחיפויים.')}</Editable><br />
+          <em><Editable contentKey="home.hero.title.3" as="span">{t('home.hero.title.3', 'בגובה העיניים.')}</Editable></em>
         </h1>
         <div className="hero-meta">
           <p className="lead">
-            {t('home.hero.lead', 'מעל שני עשורים של ייצור נגרות ברמה אדריכלית – חזיתות HPL, חיפויי לובי ונגרות פנים מוקפדת, לפרויקטים פרטיים, מסחריים וציבוריים בכל רחבי הארץ.')}
+            <Editable contentKey="home.hero.lead" as="span" multiline>{t('home.hero.lead', 'מעל שני עשורים של ייצור נגרות ברמה אדריכלית – חזיתות HPL, חיפויי לובי ונגרות פנים מוקפדת, לפרויקטים פרטיים, מסחריים וציבוריים בכל רחבי הארץ.')}</Editable>
           </p>
           <div className="meta-col">
-            <span className="mono">{t('home.hero.servicesLabel', 'השירותים שלנו')}</span>
-            <div className="val">{t('home.hero.servicesValue', 'חיפוי HPL · נגרות · לובי')}</div>
-            <div className="note">{t('home.hero.servicesNote', 'תכנון · ייצור · התקנה')}</div>
+            <span className="mono"><Editable contentKey="home.hero.servicesLabel" as="span">{t('home.hero.servicesLabel', 'השירותים שלנו')}</Editable></span>
+            <div className="val"><Editable contentKey="home.hero.servicesValue" as="span">{t('home.hero.servicesValue', 'חיפוי HPL · נגרות · לובי')}</Editable></div>
+            <div className="note"><Editable contentKey="home.hero.servicesNote" as="span">{t('home.hero.servicesNote', 'תכנון · ייצור · התקנה')}</Editable></div>
           </div>
           <div className="meta-col">
-            <span className="mono">{t('home.hero.ctaLabel', 'לפרויקט חדש')}</span>
+            <span className="mono"><Editable contentKey="home.hero.ctaLabel" as="span">{t('home.hero.ctaLabel', 'לפרויקט חדש')}</Editable></span>
             <div className="hero-actions">
-              <Link to="/contact" className="btn">{t('home.hero.ctaPrimary', 'לקבלת הצעת מחיר ←')}</Link>
-              <Link to="/projects" className="btn btn-ghost">{t('home.hero.ctaGhost', 'תיק עבודות')}</Link>
+              <Link to="/contact" className="btn"><Editable contentKey="home.hero.ctaPrimary" as="span">{t('home.hero.ctaPrimary', 'לקבלת הצעת מחיר ←')}</Editable></Link>
+              <Link to="/projects" className="btn btn-ghost"><Editable contentKey="home.hero.ctaGhost" as="span">{t('home.hero.ctaGhost', 'תיק עבודות')}</Editable></Link>
             </div>
           </div>
         </div>
