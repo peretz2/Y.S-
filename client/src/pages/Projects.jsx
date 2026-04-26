@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api.js';
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
 import './Projects.css';
 
 export default function Projects() {
@@ -37,20 +38,21 @@ export default function Projects() {
     <>
       <section className="wrap page-hero">
         <div className="hero-eyebrow">
-          <span className="line" /><span>{t('projects.eyebrow', '§ תיק עבודות · Selected works')}</span>
+          <span className="line" /><span><Editable contentKey="projects.eyebrow" as="span">{t('projects.eyebrow', '§ תיק עבודות · Selected works')}</Editable></span>
         </div>
         <h1 className="display">
-          {t('projects.title.1', 'מה שעשינו')}<br /><em>{t('projects.title.2', 'בשנים האחרונות.')}</em>
+          <Editable contentKey="projects.title.1" as="span">{t('projects.title.1', 'מה שעשינו')}</Editable><br />
+          <em><Editable contentKey="projects.title.2" as="span">{t('projects.title.2', 'בשנים האחרונות.')}</Editable></em>
         </h1>
         <div className="page-lead">
-          <p>{t('projects.lead.1', 'מבחר פרויקטים בתחומי הנגרות לבניין, חיפויי HPL וחיפוי לובאים — מפרויקטים פרטיים ועד לבנייני משרדים ומגורים. כל פרויקט תוכנן, יוצר והותקן על ידי הצוות שלנו.')}</p>
-          <p>{t('projects.lead.2', 'הגלריה מתעדכנת באופן שוטף. לקוח שעבדנו איתו ולא מופיע כאן — כנראה בכוונה: חלק מהפרויקטים נשארים פרטיים לבקשת המזמין.')}</p>
+          <p><Editable contentKey="projects.lead.1" as="span" multiline>{t('projects.lead.1', 'מבחר פרויקטים בתחומי הנגרות לבניין, חיפויי HPL וחיפוי לובאים — מפרויקטים פרטיים ועד לבנייני משרדים ומגורים. כל פרויקט תוכנן, יוצר והותקן על ידי הצוות שלנו.')}</Editable></p>
+          <p><Editable contentKey="projects.lead.2" as="span" multiline>{t('projects.lead.2', 'הגלריה מתעדכנת באופן שוטף. לקוח שעבדנו איתו ולא מופיע כאן — כנראה בכוונה: חלק מהפרויקטים נשארים פרטיים לבקשת המזמין.')}</Editable></p>
         </div>
       </section>
 
       <section className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§01</span><span className="k">{t('projects.section.label', 'הפרויקטים')}</span></div>
+          <div className="idx"><span className="n">§01</span><span className="k"><Editable contentKey="projects.section.label" as="span">{t('projects.section.label', 'הפרויקטים')}</Editable></span></div>
           <h2>
             {filtered.length ? <>{String(filtered.length).padStart(2, '0')} עבודות<br /><em>נבחרות.</em></> : <>אין עדיין<br /><em>פרויקטים.</em></>}
           </h2>
@@ -74,9 +76,9 @@ export default function Projects() {
         )}
 
         {loading ? (
-          <p className="text-muted text-center">{t('projects.loading', 'טוען…')}</p>
+          <p className="text-muted text-center"><Editable contentKey="projects.loading" as="span">{t('projects.loading', 'טוען…')}</Editable></p>
         ) : filtered.length === 0 ? (
-          <p className="text-muted text-center">{t('projects.empty', 'אין פרויקטים להצגה.')}</p>
+          <p className="text-muted text-center"><Editable contentKey="projects.empty" as="span">{t('projects.empty', 'אין פרויקטים להצגה.')}</Editable></p>
         ) : (
           <div className="proj-grid">
             {filtered.map((p, i) => (
@@ -115,10 +117,13 @@ export default function Projects() {
 
       <section className="cta">
         <div className="wrap cta-inner">
-          <h2>{t('projects.cta.heading', 'יש לכם פרויקט')}<br /><em>{t('projects.cta.heading.em', 'דומה בתכנון?')}</em></h2>
+          <h2>
+            <Editable contentKey="projects.cta.heading" as="span">{t('projects.cta.heading', 'יש לכם פרויקט')}</Editable><br />
+            <em><Editable contentKey="projects.cta.heading.em" as="span">{t('projects.cta.heading.em', 'דומה בתכנון?')}</Editable></em>
+          </h2>
           <div className="cta-side">
-            <p>{t('projects.cta.lead', 'שלחו לנו תכניות ראשוניות או תיאור של הכיוון — נחזור עם כיוון מחיר ראשוני.')}</p>
-            <Link to="/contact" className="btn btn-inv">{t('projects.cta.button', 'התחלת שיחה ←')}</Link>
+            <p><Editable contentKey="projects.cta.lead" as="span" multiline>{t('projects.cta.lead', 'שלחו לנו תכניות ראשוניות או תיאור של הכיוון — נחזור עם כיוון מחיר ראשוני.')}</Editable></p>
+            <Link to="/contact" className="btn btn-inv"><Editable contentKey="projects.cta.button" as="span">{t('projects.cta.button', 'התחלת שיחה ←')}</Editable></Link>
           </div>
         </div>
       </section>

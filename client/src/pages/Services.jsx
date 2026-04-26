@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api.js';
 import { useContent } from '../content/SiteContentContext.jsx';
+import Editable from '../content/Editable.jsx';
 import './Services.css';
 
 const FALLBACK = [
@@ -40,24 +41,28 @@ export default function Services() {
     <>
       <section className="wrap page-hero">
         <div className="hero-eyebrow">
-          <span className="line" /><span>{t('services.eyebrow', '§ שירותים · תכנון · ייצור · התקנה')}</span>
+          <span className="line" /><span><Editable contentKey="services.eyebrow" as="span">{t('services.eyebrow', '§ שירותים · תכנון · ייצור · התקנה')}</Editable></span>
         </div>
         <h1 className="display">
-          {t('services.title.1', 'מה שאנחנו')}<br /><em>{t('services.title.2', 'יודעים לעשות.')}</em>
+          <Editable contentKey="services.title.1" as="span">{t('services.title.1', 'מה שאנחנו')}</Editable><br />
+          <em><Editable contentKey="services.title.2" as="span">{t('services.title.2', 'יודעים לעשות.')}</Editable></em>
         </h1>
         <div className="page-lead">
-          <p>{t('services.lead.1', 'מגוון שירותי נגרות וחיפוי ברמה אדריכלית — מהתכנון הראשוני ועד ההתקנה באתר. כל פרויקט מתחיל בהבנה של הצורך ונבנה סביב החומרים והפרטים שנכונים לו.')}</p>
-          <p>{t('services.lead.2', 'צוות הנדסי ומפעל CNC במקום אחד. לקוחות פרטיים, אדריכלים וקבלנים ראשיים עובדים איתנו מאז 2005.')}</p>
+          <p><Editable contentKey="services.lead.1" as="span" multiline>{t('services.lead.1', 'מגוון שירותי נגרות וחיפוי ברמה אדריכלית — מהתכנון הראשוני ועד ההתקנה באתר. כל פרויקט מתחיל בהבנה של הצורך ונבנה סביב החומרים והפרטים שנכונים לו.')}</Editable></p>
+          <p><Editable contentKey="services.lead.2" as="span" multiline>{t('services.lead.2', 'צוות הנדסי ומפעל CNC במקום אחד. לקוחות פרטיים, אדריכלים וקבלנים ראשיים עובדים איתנו מאז 2005.')}</Editable></p>
         </div>
       </section>
 
       <section className="wrap sec svc-sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§01</span><span className="k">{t('services.catalog.label', 'הקטלוג')}</span></div>
-          <h2>{t('services.catalog.heading', 'חמישה תחומים,')}<br />{t('services.catalog.heading.pre', 'צוות ')} <em>{t('services.catalog.heading.em', 'אחד.')}</em></h2>
+          <div className="idx"><span className="n">§01</span><span className="k"><Editable contentKey="services.catalog.label" as="span">{t('services.catalog.label', 'הקטלוג')}</Editable></span></div>
+          <h2>
+            <Editable contentKey="services.catalog.heading" as="span">{t('services.catalog.heading', 'חמישה תחומים,')}</Editable><br />
+            <Editable contentKey="services.catalog.heading.pre" as="span">{t('services.catalog.heading.pre', 'צוות ')}</Editable><em><Editable contentKey="services.catalog.heading.em" as="span">{t('services.catalog.heading.em', 'אחד.')}</Editable></em>
+          </h2>
         </div>
         {loading && services === FALLBACK ? (
-          <p className="text-muted text-center">{t('services.loading', 'טוען…')}</p>
+          <p className="text-muted text-center"><Editable contentKey="services.loading" as="span">{t('services.loading', 'טוען…')}</Editable></p>
         ) : (
           <div className="svc-list">
             {services.map((s, i) => (
@@ -81,8 +86,11 @@ export default function Services() {
 
       <section className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§02</span><span className="k">{t('services.materials.label', 'חומרים')}</span></div>
-          <h2>{t('services.materials.heading', 'החומרים שאיתם')}<br /><em>{t('services.materials.heading.em', 'אנחנו עובדים.')}</em></h2>
+          <div className="idx"><span className="n">§02</span><span className="k"><Editable contentKey="services.materials.label" as="span">{t('services.materials.label', 'חומרים')}</Editable></span></div>
+          <h2>
+            <Editable contentKey="services.materials.heading" as="span">{t('services.materials.heading', 'החומרים שאיתם')}</Editable><br />
+            <em><Editable contentKey="services.materials.heading.em" as="span">{t('services.materials.heading.em', 'אנחנו עובדים.')}</Editable></em>
+          </h2>
         </div>
         <ul className="mat-grid">
           {MATERIALS.map((m, i) => (
@@ -96,10 +104,13 @@ export default function Services() {
 
       <section className="cta">
         <div className="wrap cta-inner">
-          <h2>{t('services.cta.heading', 'פרויקט בתכנון?')}<br /><em>{t('services.cta.heading.em', 'נשמח לעזור.')}</em></h2>
+          <h2>
+            <Editable contentKey="services.cta.heading" as="span">{t('services.cta.heading', 'פרויקט בתכנון?')}</Editable><br />
+            <em><Editable contentKey="services.cta.heading.em" as="span">{t('services.cta.heading.em', 'נשמח לעזור.')}</Editable></em>
+          </h2>
           <div className="cta-side">
-            <p>{t('services.cta.lead', 'שלחו לנו מספר שורות או תכניות ראשוניות — נחזור אליכם עם כיוון ברור תוך יום עסקים.')}</p>
-            <Link to="/contact" className="btn btn-inv">{t('services.cta.button', 'לקבלת הצעת מחיר ←')}</Link>
+            <p><Editable contentKey="services.cta.lead" as="span" multiline>{t('services.cta.lead', 'שלחו לנו מספר שורות או תכניות ראשוניות — נחזור אליכם עם כיוון ברור תוך יום עסקים.')}</Editable></p>
+            <Link to="/contact" className="btn btn-inv"><Editable contentKey="services.cta.button" as="span">{t('services.cta.button', 'לקבלת הצעת מחיר ←')}</Editable></Link>
           </div>
         </div>
       </section>
