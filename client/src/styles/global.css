@@ -635,8 +635,8 @@ a.card:hover { border-color: var(--color-ink); transform: translateY(-1px); }
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-ink, #111);
+  color: var(--color-paper, #fff);
   border: none;
   cursor: pointer;
   display: flex;
@@ -649,7 +649,7 @@ a.card:hover { border-color: var(--color-ink); transform: translateY(-1px); }
   visibility: hidden;
   transform: translateY(8px);
   transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease, background 0.15s ease;
-  z-index: 50;
+  z-index: 90;
 }
 
 .scroll-top-btn.visible {
@@ -659,7 +659,7 @@ a.card:hover { border-color: var(--color-ink); transform: translateY(-1px); }
 }
 
 .scroll-top-btn:hover {
-  background: var(--color-ink-2);
+  background: var(--color-ink-2, #3a3630);
 }
 
 .scroll-top-btn:focus-visible {

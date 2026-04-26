@@ -2,18 +2,17 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
 
 const barStyle = {
-  position: 'sticky',
-  top: 0,
+  position: 'relative',
   zIndex: 1000,
-  background: 'var(--color-text-primary)',
-  color: 'var(--color-bg-primary)',
+  background: 'var(--color-dark, #111)',
+  color: 'var(--color-dark-ink, #e9e4d8)',
   padding: '0.5rem 1rem',
   fontSize: '0.85rem',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   gap: '1rem',
-  borderBottom: '1px solid var(--color-border-secondary)',
+  borderBottom: '1px solid var(--color-line, #cec8bc)',
 };
 
 const btnStyle = {
@@ -21,7 +20,7 @@ const btnStyle = {
   color: 'inherit',
   border: '1px solid currentColor',
   padding: '0.25rem 0.75rem',
-  borderRadius: 'var(--border-radius-pill)',
+  borderRadius: 'var(--radius-pill, 999px)',
   cursor: 'pointer',
   fontSize: '0.8rem',
   textDecoration: 'none',
