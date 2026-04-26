@@ -14,23 +14,23 @@ const FALLBACK_SERVICES = [
   { _id: 's5', order: 5, title: 'ליווי הנדסי', slug: 'engineering', shortDescription: 'עבודה צמודה עם אדריכלים, קבלנים ומזמינים – מתכנון ועד מסירה.' },
 ];
 
-const STATS = [
-  { k: 'Experience', v: '21', sup: '+', n: 'שנות פעילות מאז 2005' },
-  { k: 'Projects',   v: '100', sup: '+', n: 'פרויקטים שהושלמו בארץ' },
-  { k: 'Team',       v: '20', sup: '',  n: 'מהנדסים, טכנאים ונגרים' },
-  { k: 'Coverage',   v: '360°', sup: '', n: 'תכנון · ייצור · התקנה' },
-];
-
-const PROCESS = [
-  { n: '01', t: 'פגישת היכרות', d: 'הבנת הצרכים, סיור באתר ובחירת כיוון אדריכלי ראשוני.' },
-  { n: '02', t: 'תכנון ופירוט', d: 'שרטוטים טכניים, דגמי חומרים והצעת מחיר מפורטת.' },
-  { n: '03', t: 'ייצור במפעל', d: 'ייצור CNC מדויק בבית המלאכה בגבעת אלה, בקרת איכות לכל שלב.' },
-  { n: '04', t: 'התקנה ומסירה', d: 'התקנה באתר ע״י צוות מקצועי, בדיקה סופית ומסירה מסודרת.' },
-];
-
 export default function Home() {
   const { info: companyInfo } = useCompanyInfo();
   const { t } = useContent();
+
+  const STATS = [
+    { k: 'Experience', v: '21',   sup: '+', n: t('home.stats.experience', 'שנות פעילות מאז 2005') },
+    { k: 'Projects',   v: '100',  sup: '+', n: t('home.stats.projects',   'פרויקטים שהושלמו בארץ') },
+    { k: 'Team',       v: '20',   sup: '',  n: t('home.stats.team',       'מהנדסים, טכנאים ונגרים') },
+    { k: 'Coverage',   v: '360°', sup: '',  n: t('home.stats.coverage',   'תכנון · ייצור · התקנה') },
+  ];
+
+  const PROCESS = [
+    { n: '01', t: t('home.process.step1.t', 'פגישת היכרות'),  d: t('home.process.step1.d', 'הבנת הצרכים, סיור באתר ובחירת כיוון אדריכלי ראשוני.') },
+    { n: '02', t: t('home.process.step2.t', 'תכנון ופירוט'),  d: t('home.process.step2.d', 'שרטוטים טכניים, דגמי חומרים והצעת מחיר מפורטת.') },
+    { n: '03', t: t('home.process.step3.t', 'ייצור במפעל'),   d: t('home.process.step3.d', 'ייצור CNC מדויק בבית המלאכה בגבעת אלה, בקרת איכות לכל שלב.') },
+    { n: '04', t: t('home.process.step4.t', 'התקנה ומסירה'),  d: t('home.process.step4.d', 'התקנה באתר ע״י צוות מקצועי, בדיקה סופית ומסירה מסודרת.') },
+  ];
   const [services, setServices] = useState(FALLBACK_SERVICES);
   const [projects, setProjects] = useState([]);
 
@@ -111,8 +111,8 @@ export default function Home() {
 
       <section id="services-section" className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§01</span><span className="k">השירותים</span></div>
-          <h2>חמישה תחומים.<br /><em>מפעל אחד.</em> צוות אחד.</h2>
+          <div className="idx"><span className="n">§01</span><span className="k">{t('home.services.idxKey', 'השירותים')}</span></div>
+          <h2>{t('home.services.title.1', 'חמישה תחומים.')}<br /><em>{t('home.services.title.2', 'מפעל אחד.')}</em> {t('home.services.title.3', 'צוות אחד.')}</h2>
         </div>
         <div className="svc-list">
           {services.map((s, i) => (
@@ -120,7 +120,7 @@ export default function Home() {
               <span className="num">{String(s.order || i + 1).padStart(2, '0')}</span>
               <span className="name">{s.title}</span>
               <span className="desc">{s.shortDescription || s.description || ''}</span>
-              <span className="more">לפרטים</span>
+              <span className="more">{t('home.services.more', 'לפרטים')}</span>
             </Link>
           ))}
         </div>
@@ -141,8 +141,8 @@ export default function Home() {
       {projects.length > 0 && (
         <section id="projects-section" className="wrap sec">
           <div className="sec-head">
-            <div className="idx"><span className="n">§02</span><span className="k">פרויקטים נבחרים</span></div>
-            <h2>עבודות שנעשו<br />בשלוש השנים <em>האחרונות.</em></h2>
+            <div className="idx"><span className="n">§02</span><span className="k">{t('home.projects.idxKey', 'פרויקטים נבחרים')}</span></div>
+            <h2>{t('home.projects.title.1', 'עבודות שנעשו')}<br />{t('home.projects.title.2', 'בשלוש השנים')} <em>{t('home.projects.title.3', 'האחרונות.')}</em></h2>
           </div>
           <div className="proj-featured">
             {projects.map((p, i) => (
@@ -164,15 +164,15 @@ export default function Home() {
             ))}
           </div>
           <div className="sec-cta">
-            <Link to="/projects" className="btn btn-ghost">כל תיק העבודות ←</Link>
+            <Link to="/projects" className="btn btn-ghost">{t('home.projects.viewAll', 'כל תיק העבודות ←')}</Link>
           </div>
         </section>
       )}
 
       <section id="process" className="wrap sec">
         <div className="sec-head">
-          <div className="idx"><span className="n">§03</span><span className="k">התהליך</span></div>
-          <h2>ארבעה שלבים.<br />מפגישה ראשונה <em>עד מסירה.</em></h2>
+          <div className="idx"><span className="n">§03</span><span className="k">{t('home.process.idxKey', 'התהליך')}</span></div>
+          <h2>{t('home.process.title.1', 'ארבעה שלבים.')}<br />{t('home.process.title.2', 'מפגישה ראשונה')} <em>{t('home.process.title.3', 'עד מסירה.')}</em></h2>
         </div>
         <div className="process">
           {PROCESS.map((p) => (
@@ -187,10 +187,10 @@ export default function Home() {
 
       <section id="cta" className="cta">
         <div className="wrap cta-inner">
-          <h2>פרויקט חדש באופק?<br /><em>נשמח לשמוע.</em></h2>
+          <h2>{t('home.cta.title.1', 'פרויקט חדש באופק?')}<br /><em>{t('home.cta.title.2', 'נשמח לשמוע.')}</em></h2>
           <div className="cta-side">
-            <p>שיחת ייעוץ ראשונית ללא עלות. אנחנו עונים בתוך יום עסקים ומגיעים לסיור באתר על פי צורך.</p>
-            <Link to="/contact" className="btn btn-inv">להתחלת שיחה ←</Link>
+            <p>{t('home.cta.body', 'שיחת ייעוץ ראשונית ללא עלות. אנחנו עונים בתוך יום עסקים ומגיעים לסיור באתר על פי צורך.')}</p>
+            <Link to="/contact" className="btn btn-inv">{t('home.cta.button', 'להתחלת שיחה ←')}</Link>
           </div>
         </div>
       </section>
